@@ -19,6 +19,8 @@ Below table shows the languages that Txter currently supported.
 | Python                    |
 
 ## Information
+| Information | Value |
+| --- | --- |
 | Latest version | 0.2.0 alpha |
 | Earliest supported version | 0.2.0 alpha |
 | Name | Txter |
