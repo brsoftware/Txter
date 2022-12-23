@@ -11,12 +11,12 @@ Below table shows the languages that Txter currently supported.
 
 | Programming Language Name | Supports  |
 | :-----------------------: | :-------- |
-| C-plus-plus / C++         | Syntax Highlighting and unmatched string detection |
-| CSS                       ||
-| HTML                      ||
-| Java                      ||
-| JavaScript                ||
-| Python                    ||
+| C-plus-plus / C++         | Syntax Highlighting, unmatched string detection, brace detection, auto-indent, indentation guides |
+| CSS                       | Syntax Highlighting, tag highlighting, unmatched string detection, brace detection, auto-indent (?), support for CSS3 (?) |
+| HTML                      | Syntax Highlighting, tag highlighting, unmatched string detection, brace detection, support for HTML5, support for embedded-code such as JavaScript, XML and ASP.NET, support for Django and Mako framework tag embedding, auto-indent |
+| Java                      | Syntax Highlighting, unmatched string detection, brace detection, auto-indent( ?) |
+| JavaScript                | Syntax Highlighting, unmatched string detection (?), brace detection (?), auto-indent (?) |
+| Python                    | Syntax Highlighting, unmatched string detection, brace detection, auto-indent, indentation guides, support for Python2 and Python3, support for triple-quote block-string (`'''` or `"""` syntax highlighting |
 
 ## Information
 | Information | Value |
