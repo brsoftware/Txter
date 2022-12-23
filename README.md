@@ -12,11 +12,11 @@ Below table shows the languages that Txter currently supported.
 | Programming Language Name | Supports  |
 | :-----------------------: | :-------- |
 | C-plus-plus / C++         | Syntax Highlighting and unmatched string detection |
-| CSS                       |
-| HTML                      |
-| Java                      |
-| JavaScript                |
-| Python                    |
+| CSS                       
+| HTML                      
+| Java                      
+| JavaScript                
+| Python                    
 
 ## Information
 | Information | Value |
