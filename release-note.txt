@@ -1,0 +1,52 @@
+﻿+=========================+
+|Release notes and logging|
++=========================+
+
+=======================================
+=======================================
+
++-----------------+
+|Basic Information|
++-----------------+
+
+Name: Txter
+Verifying Name: BrTxter
+Latest Version: 0.2.5 alpha
+Earliest Supported Version: 0.2.0 alpha
+Software Category: Developing/Productivity
+Software Type: Freeware (free as in "freedom")
+
++----------------------+
+|Release notes and logs|
++----------------------+
+
+0.2.5 alpha
+===========
+Date: Sun Dec 25, 2022 UTC
+--------------------------
+  - Bug fixed:
+        1. The default template of the HTML Lexer is set to None again
+        2. The file I/O error is fixed (users now can save file either by "Save" or "Save as...") again.
+  - Functionalities added:
+        1. -NONE-
+  - Remarks:
+        1. -NONE-
+
+0.2.0 alpha
+===========
+Date: Fri Dec 23, 2022 UTC
+--------------------------
+  - Bug fixed:
+        1. -NONE-
+  - Functionalities added:
+        1. File I/O.
+        2. Six languages lexers: C++, CSS, HTML, Java, JavaScript and Python.
+        3. Basic Undo/Redo framework.
+        4. Basic Cut/Copy/Paste framework.
+        5. Basic Find/Replace and Goto function.
+        6. Line numbering.
+        7. Status bar.
+        8. Printing.
+        9. Zooming and fullscreen.
+  - Remarks:
+        1. Initial release.
