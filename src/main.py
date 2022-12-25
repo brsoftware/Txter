@@ -627,6 +627,11 @@ class MainWindow(QMainWindow):
     def __slot_save(self):
         if not self.path:
             self.__slot_save_as()
+        item = self.path
+        with open(item, "wb") as file:
+            file.write(item.encode("utf-8-sig"))
+            self.original = self.__ed.text()
+            file.close()
 
     def __slot_save_as(self):
         try:
@@ -635,6 +640,7 @@ class MainWindow(QMainWindow):
             dlg.setWindowTitle("Save as - Vocab")
             dlg.setNameFilter(";;".join(self.__save_support))
             dlg.setAcceptMode(QFileDialog.AcceptSave)
+            dlg.selectNameFilter("Text files (*.txt)")
             if self.__action_format_lang_c_plus_plus.isChecked():
                 dlg.selectNameFilter("C++ source (*.cpp)")
             elif self.__action_format_lang_css.isChecked():
@@ -648,14 +654,18 @@ class MainWindow(QMainWindow):
             elif (self.__action_format_lang_python.isChecked()
                   | self.__action_format_lang_python_2.isChecked()):
                 dlg.selectNameFilter("Python script (*.py)")
-            if dlg.exec():
+            dlg.exec()
+            if dlg.selectedFiles()[0]:
                 file_list = dlg.selectedFiles()
                 item = file_list[0]
                 with open(item, "wb") as file:
-                    file.write(item.encode("utf-8-sig"))
+                    file.write(self.__ed.text().encode("utf-8-sig"))
                     self.original = self.__ed.text()
                     self.path = item
                     file.close()
+
+        except IndexError:
+            pass
 
         except Exception as exc:
             msg = QMessageBox(self)
@@ -665,6 +675,7 @@ class MainWindow(QMainWindow):
             msg.setInformativeText("Txter cannot process the file.")
             msg.setDetailedText(traceback.format_exc())
             msg.exec()
+            return
 
     def __slot_print(self):
         prn = QsciPrinter(QPrinter.PrinterMode.HighResolution)

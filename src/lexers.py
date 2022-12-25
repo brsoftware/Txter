@@ -151,7 +151,6 @@ class LexerHTML(QsciLexerHTML):
         self.__string_color.setNamedColor("#00aa00")
 
         self.setDefaultColor(self.__default_color)
-        self.setDjangoTemplates(True)
 
         self.setColor(self.__string_color, QsciLexerHTML.VBScriptString)
         self.setColor(self.__string_color, QsciLexerHTML.SGMLDoubleQuotedString)
