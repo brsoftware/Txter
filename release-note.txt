@@ -1,4 +1,4 @@
-﻿+=========================+
++=========================+
 |Release notes and logging|
 +=========================+
 
@@ -26,7 +26,6 @@ Date: Sun Dec 25, 2022 UTC
 --------------------------
   - Bug fixed:
         1. The default template of the HTML Lexer is set to None again
-        2. The file I/O error is fixed (users now can save file either by "Save" or "Save as...") again.
   - Functionalities added:
         1. -NONE-
   - Remarks:
