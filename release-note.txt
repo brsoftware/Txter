@@ -20,6 +20,24 @@ Software Type: Freeware (free as in "freedom")
 |Release notes and logs|
 +----------------------+
 
+0.2.8 alpha
+===========
+Date: Mon Jan 2, 2023 UTC
+-------------------------
+  - Bug fixed:
+        1. The application will not crash when saving to nothing or click "Cancel"
+        2. The default directory of the application changed to the "Documents"
+        3. Small fonts on older Macs
+        4. Avoid no-selected-file canceled open dialog error
+        5. Typo "Modified"
+        6. On Windows system, the EOL mode turned to "CR LF".
+  - Functionalities added:
+        1. Support for Windows 7+
+        2. Detectable Operating System error
+        3. Zoom label implemented (from -10 to +20).
+  - Remarks:
+        1. Support for Windows 7 and later added.
+
 0.2.5 alpha
 ===========
 Date: Sun Dec 25, 2022 UTC
