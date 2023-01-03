@@ -31,32 +31,39 @@ class Editor(QsciScintilla):
         # Character color
         self.__char_color = self.color()
 
+        # Font
+        self.__font = QFont()
+        self.__font.setFamily("Courier New")
+        self.__font.setFixedPitch(True)
+        self.__font.setPointSize(12)
+        self.__font.setStyleHint(QFont.StyleHint.TypeWriter)
+
         # Indentation width
         self.__indentation_width = 4
 
         # Lexer None
-        self.__lexer_none = lexers.LexerNone()
+        self.__lexer_none = lexers.LexerNone(self.__font)
 
         # Lexer C++
-        self.__lexer_c_plus_plus = lexers.LexerCPlusPlus()
+        self.__lexer_c_plus_plus = lexers.LexerCPlusPlus(self.__font)
 
         # Lexer CSS
-        self.__lexer_cascading_style_sheet = lexers.LexerCSS()
+        self.__lexer_cascading_style_sheet = lexers.LexerCSS(self.__font)
 
         # Lexer HTML
-        self.__lexer_html = lexers.LexerHTML()
+        self.__lexer_html = lexers.LexerHTML(self.__font)
 
         # Lexer Java
-        self.__lexer_java = lexers.LexerJava()
+        self.__lexer_java = lexers.LexerJava(self.__font)
 
         # Lexer JavaScript
-        self.__lexer_js = lexers.LexerJavaScript()
+        self.__lexer_js = lexers.LexerJavaScript(self.__font)
 
         # Lexer Python
-        self.__lexer_python = lexers.LexerPython3()
+        self.__lexer_python = lexers.LexerPython3(self.__font)
 
         # Lexer Python 2
-        self.__lexer_python_2 = lexers.LexerPython2()
+        self.__lexer_python_2 = lexers.LexerPython2(self.__font)
 
         # Margin background color
         self.__margin_background_color = QColor()
@@ -65,13 +72,6 @@ class Editor(QsciScintilla):
         # Margin foreground color
         self.__margin_foreground_color = QColor()
         self.__margin_foreground_color.setNamedColor("#000000")
-
-        # Font
-        self.__font = QFont()
-        self.__font.setFamily("Courier New")
-        self.__font.setFixedPitch(True)
-        self.__font.setPointSize(12)
-        self.__font.setStyleHint(QFont.StyleHint.TypeWriter)
 
         #
         # Initializing settings

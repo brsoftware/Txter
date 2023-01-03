@@ -463,6 +463,8 @@ class MainWindow(QMainWindow):
         if is_save is True:
             if self.__slot_save():
                 event.accept()
+            else:
+                event.ignore()
         elif is_save is False:
             event.accept()
         else:
@@ -503,6 +505,7 @@ class MainWindow(QMainWindow):
             dlg.setNameFilter(";;".join(self.__open_support))
             dlg.setAcceptMode(QFileDialog.AcceptOpen)
             dlg.setFileMode(QFileDialog.ExistingFile)
+            dlg.setDirectory(QStandardPaths.standardLocations(QStandardPaths.DocumentsLocation)[0])
             dlg.exec()
             if dlg.selectedFiles()[0]:
                 file_list = dlg.selectedFiles()
@@ -627,9 +630,10 @@ class MainWindow(QMainWindow):
     def __slot_save(self):
         if not self.path:
             self.__slot_save_as()
+            return
         item = self.path
         with open(item, "wb") as file:
-            file.write(item.encode("utf-8-sig"))
+            file.write(self.__ed.text().encode("utf-8-sig"))
             self.original = self.__ed.text()
             file.close()
 
@@ -640,6 +644,7 @@ class MainWindow(QMainWindow):
             dlg.setWindowTitle("Save as - Vocab")
             dlg.setNameFilter(";;".join(self.__save_support))
             dlg.setAcceptMode(QFileDialog.AcceptSave)
+            dlg.setDirectory(QStandardPaths.standardLocations(QStandardPaths.DocumentsLocation)[0])
             dlg.selectNameFilter("Text files (*.txt)")
             if self.__action_format_lang_c_plus_plus.isChecked():
                 dlg.selectNameFilter("C++ source (*.cpp)")
@@ -654,15 +659,17 @@ class MainWindow(QMainWindow):
             elif (self.__action_format_lang_python.isChecked()
                   | self.__action_format_lang_python_2.isChecked()):
                 dlg.selectNameFilter("Python script (*.py)")
-            dlg.exec()
-            if dlg.selectedFiles()[0]:
+            if (not dlg.exec()) and dlg.selectedFiles()[0]:
                 file_list = dlg.selectedFiles()
                 item = file_list[0]
                 with open(item, "wb") as file:
                     file.write(self.__ed.text().encode("utf-8-sig"))
+                    print(self.__ed.text().encode("utf-8-sig").decode("utf-8-sig"))
                     self.original = self.__ed.text()
                     self.path = item
                     file.close()
+            else:
+                return
 
         except IndexError:
             pass

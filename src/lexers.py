@@ -7,12 +7,10 @@ from PyQt5.Qsci import *
 
 
 class LexerNone(QsciLexerCustom):
-    def __init__(self, parent=None):
+    def __init__(self, font, parent=None):
         super().__init__(parent)
 
-        self.__font = QFont()
-        self.__font.setFamily("Courier New")
-        self.__font.setStyleHint(QFont.StyleHint.TypeWriter)
+        self.__font = font
 
         self.setDefaultFont(self.__font)
 
@@ -24,12 +22,10 @@ class LexerNone(QsciLexerCustom):
 
 
 class LexerCPlusPlus(QsciLexerCPP):
-    def __init__(self, parent=None):
+    def __init__(self, font, parent=None):
         super().__init__(parent)
 
-        self.__font = QFont()
-        self.__font.setFamily("Courier New")
-        self.__font.setStyleHint(QFont.StyleHint.TypeWriter)
+        self.__font = font
 
         self.__comment_kw_color = QColor()
         self.__comment_kw_color.setNamedColor("yellow")
@@ -103,12 +99,10 @@ class LexerCPlusPlus(QsciLexerCPP):
 
 
 class LexerCSS(QsciLexerCSS):
-    def __init__(self, parent=None):
+    def __init__(self, font, parent=None):
         super().__init__(parent)
 
-        self.__font = QFont()
-        self.__font.setFamily("Courier New")
-        self.__font.setStyleHint(QFont.StyleHint.TypeWriter)
+        self.__font = font
 
         self.__kw_color = QColor()
         self.__kw_color.setNamedColor("yellow")
@@ -131,12 +125,10 @@ class LexerCSS(QsciLexerCSS):
 
 
 class LexerHTML(QsciLexerHTML):
-    def __init__(self, parent=None):
+    def __init__(self, font, parent=None):
         super().__init__(parent)
 
-        self.__font = QFont()
-        self.__font.setFamily("Courier New")
-        self.__font.setStyleHint(QFont.StyleHint.TypeWriter)
+        self.__font = font
 
         self.__default_color = QColor()
         self.__default_color.setNamedColor("#aaaaaa")
@@ -386,12 +378,10 @@ class LexerHTML(QsciLexerHTML):
 
 
 class LexerJava(QsciLexerJava):
-    def __init__(self, parent=None):
+    def __init__(self, font, parent=None):
         super().__init__(parent)
 
-        self.__font = QFont()
-        self.__font.setFamily("Courier New")
-        self.__font.setStyleHint(QFont.StyleHint.TypeWriter)
+        self.__font = font
 
         self.setDefaultFont(self.__font)
         self.setFont(self.__font, QsciLexerJava.Comment)
@@ -463,12 +453,10 @@ class LexerJava(QsciLexerJava):
         
         
 class LexerJavaScript(QsciLexerJavaScript):
-    def __init__(self, parent=None):
+    def __init__(self, font, parent=None):
         super().__init__(parent)
 
-        self.__font = QFont()
-        self.__font.setFamily("Courier New")
-        self.__font.setStyleHint(QFont.StyleHint.TypeWriter)
+        self.__font = font
 
         self.__default_color = QColor()
         self.__default_color.setNamedColor("#aaaaaa")
@@ -477,7 +465,7 @@ class LexerJavaScript(QsciLexerJavaScript):
         self.__comment_kw_color.setNamedColor("#6649cd")
 
         self.__kw_color = QColor()
-        self.__kw_color.setNamedColor("yellow")
+        self.__kw_color.setNamedColor("#999900")
 
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
@@ -542,12 +530,10 @@ class LexerJavaScript(QsciLexerJavaScript):
 
 
 class LexerPython2(QsciLexerPython):
-    def __init__(self, parent=None):
+    def __init__(self, font, parent=None):
         super().__init__(parent)
 
-        self.__font = QFont()
-        self.__font.setFamily("Courier New")
-        self.__font.setStyleHint(QFont.StyleHint.TypeWriter)
+        self.__font = font
 
         self.setDefaultFont(self.__font)
         self.setFont(self.__font, QsciLexerPython.Comment)
@@ -575,12 +561,10 @@ class LexerPython2(QsciLexerPython):
 
 
 class LexerPython3(QsciLexerPython):
-    def __init__(self, parent=None):
+    def __init__(self, font, parent=None):
         super().__init__(parent)
 
-        self.__font = QFont()
-        self.__font.setFamily("Courier New")
-        self.__font.setStyleHint(QFont.StyleHint.TypeWriter)
+        self.__font = font
 
         self.setDefaultFont(self.__font)
         self.setFont(self.__font, QsciLexerPython.Comment)
