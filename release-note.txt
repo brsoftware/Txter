@@ -11,7 +11,7 @@
 
 Name: Txter
 Verifying Name: BrTxter
-Latest Version: 0.2.5 alpha
+Latest Version: 0.2.11 alpha
 Earliest Supported Version: 0.2.0 alpha
 Software Category: Developing/Productivity
 Software Type: Freeware (free as in "freedom")
@@ -19,6 +19,23 @@ Software Type: Freeware (free as in "freedom")
 +----------------------+
 |Release notes and logs|
 +----------------------+
+
+0.2.11 alpha
+============
+Date: 
+    Windows: Tue Jan 3, 2023 UTC
+    macOS: Sat Jan 7, 2023 UTC
+--------------------------------
+  - Bug fixed:
+        1. When the user opens the file with the file browser, the application will not crash.
+        2. When the user opens the file with the file browser, the language menu will change the checkbox.
+  - Functionalities added:
+        1. Zoom label
+        2. Language label
+        3. Title bar showing file name or "Untitled"
+        4. Add syntax highlighting support for Python distribution files such as ".spec" and ".egg"
+  - Remarks:
+        1. -NONE-
 
 0.2.8 alpha
 ===========
