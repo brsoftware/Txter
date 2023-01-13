@@ -1,4 +1,4 @@
-"""
+﻿"""
 
 """
 
@@ -40,13 +40,14 @@ class MainWindow(QMainWindow):
             "Java class archive (*.jar)",
             "Java files (*.java; *.jar)",
             "JavaScript file (*.js)",
+            "PyInstaller files (*.spec)",
             "Python script (*.py)",
             "Python console-less scripts (*.pyw)",
             "Python scripts (*.py; *.pyw)",
             "Python cache file (*.pyc)",
             "Python informative documentations (*.pyi)",
             "Python bytecode optimized file (*.pyo)",
-            "Python files (*.py; *.pyw; *.pyc; *.pyi; *.pyo)"
+            "Python files (*.py; *.pyw; *.pyc; *.pyi; *.pyo; *.spec)"
         ]
 
         self.__save_support = [
@@ -64,6 +65,7 @@ class MainWindow(QMainWindow):
             "Java code (*.java)",
             "Java class archive (*.jar)",
             "JavaScript file (*.js)",
+            "PyInstaller files (*.spec)",
             "Python script (*.py)",
             "Python console-less scripts (*.pyw)",
             "Python cache file (*.pyc)",
@@ -416,6 +418,14 @@ class MainWindow(QMainWindow):
         self.__col_label.setText("Column: 1")
         self.__status_bar.addPermanentWidget(self.__col_label)
 
+        self.__zoom_label = QLabel()
+        self.__zoom_label.setText("Zoom: 100%")
+        self.__status_bar.addPermanentWidget(self.__zoom_label)
+
+        self.__lang_label = QLabel()
+        self.__lang_label.setText("Language: None")
+        self.__status_bar.addPermanentWidget(self.__lang_label)
+
     def __init_signals(self):
         self.__action_file_new.triggered.connect(self.__slot_new)
         self.__action_file_open.triggered.connect(self.__slot_open)
@@ -436,26 +446,27 @@ class MainWindow(QMainWindow):
         self.__action_view_zoom_in.triggered.connect(self.__ed.zoom_in)
         self.__action_view_zoom_out.triggered.connect(self.__ed.zoom_out)
         self.__action_view_full_screen.triggered.connect(self.__slot_full_screen)
-        self.__action_format_lang_none.triggered.connect(self.__ed.set_lexer_none)
-        self.__action_format_lang_c_plus_plus.triggered.connect(self.__ed.set_lexer_c_plus_plus)
-        self.__action_format_lang_css.triggered.connect(self.__ed.set_lexer_cascading_style_sheet)
-        self.__action_format_lang_html.triggered.connect(self.__ed.set_lexer_html)
+        self.__action_format_lang_none.triggered.connect(self.__slot_format_lang_none)
+        self.__action_format_lang_c_plus_plus.triggered.connect(self.__slot_format_lang_c_plus_plus)
+        self.__action_format_lang_css.triggered.connect(self.__slot_format_lang_css)
+        self.__action_format_lang_html.triggered.connect(self.__slot_format_lang_html)
         self.__action_format_lang_html_django.triggered.connect(self.__ed.set_lexer_html_django)
         self.__action_format_lang_html_mako.triggered.connect(self.__ed.set_lexer_html_mako)
-        self.__action_format_lang_java.triggered.connect(self.__ed.set_lexer_java)
-        self.__action_format_lang_js.triggered.connect(self.__ed.set_lexer_js)
-        self.__action_format_lang_python_2.triggered.connect(self.__ed.set_lexer_python_2)
-        self.__action_format_lang_python.triggered.connect(self.__ed.set_lexer_python)
+        self.__action_format_lang_java.triggered.connect(self.__slot_foramt_lang_java)
+        self.__action_format_lang_js.triggered.connect(self.__slot_format_lang_js)
+        self.__action_format_lang_python_2.triggered.connect(self.__slot_format_lang_python_2)
+        self.__action_format_lang_python.triggered.connect(self.__slot_format_lang_python_3)
         self.__action_window_maximize.triggered.connect(self.showMaximized)
         self.__action_window_minimize.triggered.connect(self.showMinimized)
 
+        self.__ed.SCN_ZOOM.connect(self.___slot_zoom_changed)
         self.__ed.copyAvailable.connect(self.__action_edit_copy.setEnabled)
         self.__ed.copyAvailable.connect(self.__action_edit_cut.setEnabled)
         self.__ed.cursorPositionChanged.connect(self.___slot_pos_changed)
         self.__ed.selectionChanged.connect(self.___slot_pos_changed)
 
     def __init_window(self):
-        self.setWindowTitle("Txter")
+        self.setWindowTitle(f"Untitled - Txter")
         self.showMaximized()
 
     def closeEvent(self, event):
@@ -489,13 +500,25 @@ class MainWindow(QMainWindow):
         self.__col_label.setText(f"Row: {(self.__ed.getCursorPosition()[0]) + 1}")
         self.__row_label.setText(f"Col: {(self.__ed.getCursorPosition()[1]) + 1}")
 
+    def ___slot_zoom_changed(self):
+        zoom = self.__ed.SendScintilla(self.__ed.SCI_GETZOOM)
+        if zoom < 0:
+            zoom = (11 - abs(zoom)) * 10
+        elif zoom > 0:
+            zoom = abs(zoom) // 2 * 10 + 110
+        else:
+            zoom = 100
+        self.__zoom_label.setText(f"Zoom: {zoom}%")
+
     def __slot_new(self):
         is_save = self.___private_ask_if_save()
         if is_save is True:
             if self.__slot_save():
                 self.__ed.clear()
+                self.setWindowTitle(f"Untitled - Txter")
         elif is_save is False:
             self.__ed.clear()
+            self.setWindowTitle(f"Untitled - Txter")
 
     def __slot_open(self):
         try:
@@ -527,19 +550,30 @@ class MainWindow(QMainWindow):
                                                 "C++ header (*.h; *.hpp; *hxx)",
                                                 "C++ files (*.cpp; *.cxx; *.h; *.hxx; *.hpp; *.hxx)"]:
                     self.__ed.set_lexer_c_plus_plus()
+                    self.__action_format_lang_c_plus_plus.setChecked(True)
+                    self.__lang_label.setText("Language: C++ (C-Plus-Plus)")
                 elif dlg.selectedNameFilter() == "CSS file (*.css)":
                     self.__ed.set_lexer_cascading_style_sheet()
+                    self.__action_format_lang_css.setChecked(True)
+                    self.__lang_label.setText("Language: CSS (Cascading StyleSheet)")
                 elif dlg.filter() in ["HTML source (*.html)",
                                       "HTML multimedia source (*.mhtml)",
                                       "HTML single package source (*.shtml)"]:
                     self.__ed.set_lexer_html()
+                    self.__action_format_lang_html.setChecked(True)
+                    self.__lang_label.setText("Language: HTML (HyperText Markup Language)")
                 elif dlg.selectedNameFilter() in ["Java code (*.java)",
                                                   "Java class archive (*.jar)",
                                                   "Java files (*.java; *.jar)"]:
                     self.__ed.set_lexer_java()
+                    self.__action_format_lang_java.setChecked(True)
+                    self.__lang_label.setText("Language: Java")
                 elif dlg.selectedNameFilter() == "JavaScript file (*.js)":
                     self.__ed.set_lexer_js()
-                elif dlg.selectedNameFilter() in ["Python script (*.py)",
+                    self.__action_format_lang_js.setChecked(True)
+                    self.__lang_label.setText("Language: JS (JavaScript)")
+                elif dlg.selectedNameFilter() in ["PyInstaller files (*.spec)",
+                                                  "Python script (*.py)",
                                                   "Python console-less scripts (*.pyw)",
                                                   "Python scripts (*.py; *.pyw)",
                                                   "Python cache file (*.pyc)",
@@ -547,6 +581,8 @@ class MainWindow(QMainWindow):
                                                   "Python bytecode optimized file (*.pyo)",
                                                   "Python files (*.py; *.pyw; *.pyc; *.pyi; *.pyo)"]:
                     self.__ed.set_lexer_python()
+                    self.__action_format_lang_python.setChecked(True)
+                    self.__lang_label.setText("Language: Python (Python 3)")
                 else:
                     if os.path.splitext(dlg.selectedFiles()[0])[1].lower() in (".cpp",
                                                                                ".cxx",
@@ -554,24 +590,38 @@ class MainWindow(QMainWindow):
                                                                                ".hpp",
                                                                                ".hxx"):
                         self.__ed.set_lexer_c_plus_plus()
+                        self.__action_format_lang_c_plus_plus.setChecked(True)
+                        self.__lang_label.setText("Language: C++ (C-Plus-Plus)")
                     elif os.path.splitext(dlg.selectedFiles()[0])[1].lower() == ".css":
                         self.__ed.set_lexer_cascading_style_sheet()
+                        self.__action_format_lang_css.setChecked(True)
+                        self.__lang_label.setText("Language: CSS (Cascading StyleSheet)")
                     elif os.path.splitext(dlg.selectedFiles()[0])[1].lower() in (".html",
                                                                                  ".mhtml",
                                                                                  ".shtml"):
                         self.__ed.set_lexer_html()
+                        self.__action_format_lang_html.setChecked(True)
+                        self.__lang_label.setText("Language: HTML (HyperText Markup Language)")
                     elif os.path.splitext(dlg.selectedFiles()[0])[1].lower() in (".java", ".jar"):
                         self.__ed.set_lexer_java()
+                        self.__action_format_lang_java.setChecked(True)
+                        self.__lang_label.setText("Language: Java")
                     elif os.path.splitext(dlg.selectedFiles()[0])[1].lower() == ".js":
-                        self.__ed.set_lexer_none()
+                        self.__ed.set_lexer_js()
+                        self.__action_format_lang_js.setChecked(True)
+                        self.__lang_label.setText("Language: JS (JavaScript)")
                     elif os.path.splitext(dlg.selectedFiles()[0])[1].lower() in (".py",
                                                                                  ".pyw",
                                                                                  ".pyc",
                                                                                  ".pyi",
-                                                                                 ".pyo"):
+                                                                                 ".pyo",
+                                                                                 ".spec"):
                         self.__ed.set_lexer_python()
+                        self.__action_format_lang_python.setChecked(True)
+                        self.__lang_label.setText("Language: Python (Python 3)")
                     else:
                         self.__ed.set_lexer_none()
+                        self.__lang_label.setText("Language: None")
 
         except IndexError:
             pass
@@ -584,6 +634,9 @@ class MainWindow(QMainWindow):
             msg.setInformativeText("Txter cannot process the file.")
             msg.setDetailedText(traceback.format_exc())
             msg.exec()
+
+        else:
+            self.setWindowTitle(f"{item} - Txter")
 
     def open_through_argv(self, argv_list):
         try:
@@ -602,27 +655,46 @@ class MainWindow(QMainWindow):
                                                      ".hpp",
                                                      ".hxx"):
                 self.__ed.set_lexer_c_plus_plus()
+                self.__action_format_lang_c_plus_plus.setChecked(True)
+                self.__lang_label.setText("Language: C++ (C-Plus-Plus)")
             elif os.path.splitext(item)[1].lower() == ".css":
                 self.__ed.set_lexer_cascading_style_sheet()
+                self.__action_format_lang_css.setChecked(True)
+                self.__lang_label.setText("Language: CSS (Cascading StyleSheet)")
             elif os.path.splitext(item)[1].lower() in (".html",
                                                        ".mhtml",
                                                        ".shtml"):
                 self.__ed.set_lexer_html()
+                self.__action_format_lang_html.setChecked(True)
+                self.__lang_label.setText("Language: HTML (HyperText Markup Language)")
             elif os.path.splitext(item)[1].lower() in (".java", ".jar"):
                 self.__ed.set_lexer_java()
+                self.__action_format_lang_java.setChecked(True)
+                self.__lang_label.setText("Language: Java")
             elif os.path.splitext(item)[1].lower() == ".js":
-                self.__ed.set_lexer_none()
-            elif os.path.splitext(item)[1].lower() in (".py",
+                self.__ed.set_lexer_js()
+                self.__action_format_lang_js.setChecked(True)
+                self.__lang_label.setText("Language: JS (JavaScript)")
+            elif os.path.splitext(item)[1].lower() in (".egg",
+                                                       ".egg-info",
+                                                       ".py",
                                                        ".pyw",
                                                        ".pyc",
                                                        ".pyi",
-                                                       ".pyo"):
+                                                       ".pyo",
+                                                       ".spec"):
                 self.__ed.set_lexer_python()
+                self.__action_format_lang_python.setChecked(True)
+                self.__lang_label.setText("Language: Python (Python 3)")
             else:
                 self.__ed.set_lexer_none()
+                self.__lang_label.setText("Language: None")
 
         except:
             pass
+
+        else:
+            self.setWindowTitle(f"{item} - Txter")
 
     def __slot_close(self):
         self.close()
@@ -659,12 +731,12 @@ class MainWindow(QMainWindow):
             elif (self.__action_format_lang_python.isChecked()
                   | self.__action_format_lang_python_2.isChecked()):
                 dlg.selectNameFilter("Python script (*.py)")
-            if (not dlg.exec()) and dlg.selectedFiles()[0]:
+            dlg.exec()
+            if dlg.selectedFiles()[0]:
                 file_list = dlg.selectedFiles()
                 item = file_list[0]
                 with open(item, "wb") as file:
                     file.write(self.__ed.text().encode("utf-8-sig"))
-                    print(self.__ed.text().encode("utf-8-sig").decode("utf-8-sig"))
                     self.original = self.__ed.text()
                     self.path = item
                     file.close()
@@ -683,6 +755,9 @@ class MainWindow(QMainWindow):
             msg.setDetailedText(traceback.format_exc())
             msg.exec()
             return
+        
+        else:
+            self.setWindowTitle(f"{item} - Txter")
 
     def __slot_print(self):
         prn = QsciPrinter(QPrinter.PrinterMode.HighResolution)
@@ -691,6 +766,7 @@ class MainWindow(QMainWindow):
 
     def __slot_quit(self):
         qApp.quit()
+        self.close()
 
     def __slot_find(self):
         dlg = dialogs.FindDialog(self.__ed)
@@ -709,6 +785,38 @@ class MainWindow(QMainWindow):
             self.showFullScreen()
         else:
             self.showMaximized()
+            
+    def __slot_format_lang_none(self):
+        self.__ed.set_lexer_none()
+        self.__lang_label.setText("Language: None")
+
+    def __slot_format_lang_c_plus_plus(self):
+        self.__ed.set_lexer_c_plus_plus()
+        self.__lang_label.setText("Language: C++ (C-Plus-Plus)")
+
+    def __slot_format_lang_css(self):
+        self.__ed.set_lexer_cascading_style_sheet()
+        self.__lang_label.setText("Language: CSS (Cascading StyleSheet)")
+        
+    def __slot_format_lang_html(self):
+        self.__ed.set_lexer_html()
+        self.__lang_label.setText("Language: HTML (HyperText Markup Language)")
+        
+    def __slot_foramt_lang_java(self):
+        self.__ed.set_lexer_java()
+        self.__lang_label.setText("Language: Java")
+        
+    def __slot_format_lang_js(self):
+        self.__ed.set_lexer_js()
+        self.__lang_label.setText("Language: JS (JavaScript)")
+        
+    def __slot_format_lang_python_2(self):
+        self.__ed.set_lexer_python_2()
+        self.__lang_label.setText("Language: Python (Python 2)")
+        
+    def __slot_format_lang_python_3(self):
+        self.__ed.set_lexer_python()
+        self.__lang_label.setText("Language: Python (Python 3)")
 
 
 if __name__ == "__main__":
