@@ -11,7 +11,7 @@
 
 Name: Txter
 Verifying Name: BrTxter
-Latest Version: 0.2.11 alpha
+Latest Version: 0.2.12 alpha
 Earliest Supported Version: 0.2.0 alpha
 Software Category: Developing/Productivity
 Software Type: Freeware (free as in "freedom")
@@ -19,6 +19,20 @@ Software Type: Freeware (free as in "freedom")
 +----------------------+
 |Release notes and logs|
 +----------------------+
+
+0.2.12 alpha
+============
+Date:
+    Windows: Fri Jan 13, 2021 UTC
+    macOS: -NONE-
+---------------------------------
+  - Bug fixed:
+        1. Fixed the bug of zoom label changing on Windows system.
+        2. Fixed the error of file not saving on Windows.
+  - Functionalities added:
+        1. -NONE-
+  - Remarks:
+        1. -NONE-
 
 0.2.11 alpha
 ============
