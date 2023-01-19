@@ -1,34 +1,136 @@
 """
+This is a file of a project of the Bright Software Foundation.
 
+======================= Project and File Information ===========================
+
+Project Name:                           Txter
+
+Project Name Identifier:                brTxter
+
+Project Version (for This File):        0.5.0
+
+Project Status (for This File):         beta testing...
+
+Project Start Date:                     Dec 23, 2022 UTC
+
+Project Start Version:                  0.2.0 [alpha]
+
+Project End Date:                       --None--
+
+Project End Version:                    --None--
+
+Project Activate State:                 Remains Activate
+
+Project Type:                           Freeware
+
+Project Copyright:                      Copyleft
+
+Project License:                        Bright Software License
+
+Project Developer:                      Bright Software Foundation Development Team
+
+Project Creator:                        Bright Software Foundation
+
+Project Used Programming Language(s):   Python 3
+
+Project Download Mirror:                https://sourceforge.net/projects/brtxter
+
+Project Source Hosting Mirror:          https://github.com/brsoftware/txter
+
+
+File Name:                              lexers.py
+
+File Type:                              Source File
+
+File Belongs To:                        Txter / brTxter
+
+================================================================================
+
+Bright Software Foundation 2022 - 2023
 """
 
-from PyQt5.QtGui import QColor, QFont
+
+#
+# Importing packages and modules...
+#
+
+
+# PyQt
+from PyQt5.QtGui import QColor
 from PyQt5.Qsci import *
 
 
+#
+# Defining the class(es)...
+#
+
+
 class LexerNone(QsciLexerCustom):
+    """
+    No lexer.
+    Defining for beauty and uniform.
+    """
+
     def __init__(self, font, parent=None):
+        """
+        Initializing method for LexerNone.
+
+        :param font: QFont (must)
+        :param parent: QObject | None
+        """
+
+        # Super the class to the parent.
         super().__init__(parent)
 
+        # Initializing variables.
         self.__font = font
 
+        # Setting default fonts.
         self.setDefaultFont(self.__font)
 
     def description(self, style):
+        """
+        Description: No description.
+
+        :param style: Q_UNUSED(int)
+        :return: 'No lexer'
+        """
+
         return "No lexer"
 
     def styleText(self, start, end):
+        """
+        Style no text.
+
+        :param start: Q_UNUSED(int)
+        :param end: Q_UNUSED(end)
+        :return: None
+        """
+
         pass
 
 
 class LexerCPlusPlus(QsciLexerCPP):
+    """
+    C++ Lexer.
+    """
+
     def __init__(self, font, parent=None):
+        """
+        Initializing method for LexerCPlusPlus.
+
+        :param font: QFont (must)
+        :param parent: QObject | None
+        """
+
+        # Super the class to the parent.
         super().__init__(parent)
 
+        # Defining the variables...
         self.__font = font
 
         self.__comment_kw_color = QColor()
-        self.__comment_kw_color.setNamedColor("yellow")
+        self.__comment_kw_color.setNamedColor("#fca510")
 
         self.__kw_color = QColor()
         self.__kw_color.setNamedColor("#3333ff")
@@ -36,11 +138,13 @@ class LexerCPlusPlus(QsciLexerCPP):
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
 
+        # Setting fold commands...
         self.setFoldCompact(False)
         self.setFoldComments(True)
         self.setFoldAtElse(True)
         self.setFoldPreprocessor(True)
 
+        # Setting default foreground color...
         self.setColor(self.__comment_kw_color, QsciLexerCPP.CommentDocKeyword)
         self.setColor(self.__comment_kw_color, QsciLexerCPP.InactiveCommentDocKeyword)
         self.setColor(self.__kw_color, QsciLexerCPP.Keyword)
@@ -62,6 +166,7 @@ class LexerCPlusPlus(QsciLexerCPP):
         self.setColor(self.__string_color, QsciLexerCPP.InactiveVerbatimString)
         self.setColor(self.__string_color, QsciLexerCPP.TripleQuotedVerbatimString)
 
+        # Setting default font...
         self.setDefaultFont(self.__font)
         self.setFont(self.__font, QsciLexerCPP.Comment)
         self.setFont(self.__font, QsciLexerCPP.CommentDoc)
@@ -99,13 +204,26 @@ class LexerCPlusPlus(QsciLexerCPP):
 
 
 class LexerCSS(QsciLexerCSS):
+    """
+    CSS Lexer.
+    """
+
     def __init__(self, font, parent=None):
+        """
+        Initializing method for LexerCSS.
+
+        :param font: QFont (must)
+        :param parent: QObject | None
+        """
+
+        # Super the class to the parent.
         super().__init__(parent)
 
+        # Defining variables.
         self.__font = font
 
         self.__kw_color = QColor()
-        self.__kw_color.setNamedColor("yellow")
+        self.__kw_color.setNamedColor("#fca510")
 
         self.__tag_color = QColor()
         self.__tag_color.setNamedColor("blue")
@@ -113,6 +231,7 @@ class LexerCSS(QsciLexerCSS):
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
 
+        # Setting default foreground color.
         self.setColor(self.__kw_color, QsciLexerCSS.ClassSelector)
         self.setColor(self.__kw_color, QsciLexerCSS.IDSelector)
         self.setColor(self.__tag_color, QsciLexerCSS.Tag)
@@ -120,18 +239,34 @@ class LexerCSS(QsciLexerCSS):
         self.setColor(self.__string_color, QsciLexerCSS.SingleQuotedString)
         self.setColor(self.__string_color, QsciLexerCSS.DoubleQuotedString)
 
+        # Setting default font.
         self.setDefaultFont(self.__font)
         self.setFont(self.__font, QsciLexerCSS.Comment)
+        self.setFont(self.__font, QsciLexerCSS.SingleQuotedString)
+        self.setFont(self.__font, QsciLexerCSS.DoubleQuotedString)
 
 
 class LexerHTML(QsciLexerHTML):
+    """
+    HTML Lexer.
+    """
+
     def __init__(self, font, parent=None):
+        """
+        Initializing method for LexerHTML.
+
+        :param font: QFont (must)
+        :param parent: QObject | None
+        """
+
+        # Super the class to the parent.
         super().__init__(parent)
 
+        # Defining variables...
         self.__font = font
 
         self.__default_color = QColor()
-        self.__default_color.setNamedColor("#aaaaaa")
+        self.__default_color.setNamedColor("#888888")
 
         self.__kw_color = QColor()
         self.__kw_color.setNamedColor("#5538ab")
@@ -142,6 +277,7 @@ class LexerHTML(QsciLexerHTML):
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
 
+        # Setting default foreground color...
         self.setDefaultColor(self.__default_color)
 
         self.setColor(self.__string_color, QsciLexerHTML.VBScriptString)
@@ -180,6 +316,7 @@ class LexerHTML(QsciLexerHTML):
         self.setColor(self.__tag_color, QsciLexerHTML.XMLTagEnd)
         self.setColor(self.__default_color, QsciLexerHTML.Default)
 
+        # Setting default font...
         self.setDefaultFont(self.__font)
         self.setFont(self.__font, QsciLexerHTML.HTMLComment)
         self.setFont(self.__font, QsciLexerHTML.SGMLComment)
@@ -270,7 +407,16 @@ class LexerHTML(QsciLexerHTML):
         self.setFont(self.__font, QsciLexerHTML.Default)
 
     def keywords(self, style):
+        """
+        Styling the keywords.
+
+        :param style: int (must)
+        :return: None
+        """
+
         if style == 1:
+            # HTML tags and its attributes
+
             return (
                 "a abbr acronym address applet area artical aside audio "
                 "b base basefont bdo big blockquote body br button "
@@ -328,6 +474,8 @@ class LexerHTML(QsciLexerHTML):
                 "public !doctype")
 
         if style == 2:
+            # ASP.NET
+
             return (
                 "abstract boolean break byte case catch char class const continue "
                 "debugger default delete do double else enum export extends final "
@@ -338,6 +486,8 @@ class LexerHTML(QsciLexerHTML):
             )
 
         if style == 3:
+            # Visual Basic
+
             return (
                 "and begin case call continue do each else elseif end "
                 "erase error event exit false for function get gosub "
@@ -353,11 +503,15 @@ class LexerHTML(QsciLexerHTML):
             )
 
         if style == 4:
+            # Python {3}! {3}!
+
             return ("False None True and as assert async await break class continue def del elif else except "
                     "finally for from global if import in is lambda nonlocal not or pass raise return try "
                     "while with yield")
 
         if style == 5:
+            # Cython
+
             return (
                 "and argv as argc break case cfunction class continue "
                 "declare default do die "
@@ -378,16 +532,26 @@ class LexerHTML(QsciLexerHTML):
 
 
 class LexerJava(QsciLexerJava):
+    """
+    Java Lexer.
+    """
+
     def __init__(self, font, parent=None):
+        """
+        Initializing method for Lexer Java.
+
+        :param font: QFont (must)
+        :param parent: QObject | None
+        """
+
+        # Super the class to the parent.
         super().__init__(parent)
 
+        # Defining variables...
         self.__font = font
 
-        self.setDefaultFont(self.__font)
-        self.setFont(self.__font, QsciLexerJava.Comment)
-
         self.__comment_kw_color = QColor()
-        self.__comment_kw_color.setNamedColor("yellow")
+        self.__comment_kw_color.setNamedColor("#fca510")
 
         self.__kw_color = QColor()
         self.__kw_color.setNamedColor("#3333ff")
@@ -395,6 +559,7 @@ class LexerJava(QsciLexerJava):
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
 
+        # Setting default foreground color...
         self.setColor(self.__comment_kw_color, QsciLexerJava.CommentDocKeyword)
         self.setColor(self.__comment_kw_color, QsciLexerJava.InactiveCommentDocKeyword)
         self.setColor(self.__kw_color, QsciLexerJava.Keyword)
@@ -416,6 +581,7 @@ class LexerJava(QsciLexerJava):
         self.setColor(self.__string_color, QsciLexerJava.InactiveVerbatimString)
         self.setColor(self.__string_color, QsciLexerJava.TripleQuotedVerbatimString)
 
+        # Setting default font...
         self.setDefaultFont(self.__font)
         self.setFont(self.__font, QsciLexerJava.Comment)
         self.setFont(self.__font, QsciLexerJava.CommentDoc)
@@ -453,9 +619,22 @@ class LexerJava(QsciLexerJava):
         
         
 class LexerJavaScript(QsciLexerJavaScript):
+    """
+    JavaScript Lexer.
+    """
+
     def __init__(self, font, parent=None):
+        """
+        Initializing method for LexerJavaScript.
+
+        :param font: QFont (must)
+        :param parent: QObject | None
+        """
+
+        # Super the class to the parent
         super().__init__(parent)
 
+        # Defining variables...
         self.__font = font
 
         self.__default_color = QColor()
@@ -470,6 +649,7 @@ class LexerJavaScript(QsciLexerJavaScript):
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
 
+        # Setting default foreground color...
         self.setDefaultColor(self.__default_color)
 
         self.setColor(self.__comment_kw_color, QsciLexerJavaScript.CommentDocKeyword)
@@ -493,6 +673,7 @@ class LexerJavaScript(QsciLexerJavaScript):
         self.setColor(self.__string_color, QsciLexerJavaScript.InactiveVerbatimString)
         self.setColor(self.__string_color, QsciLexerJavaScript.TripleQuotedVerbatimString)
 
+        # Setting default font...
         self.setDefaultFont(self.__font)
         self.setFont(self.__font, QsciLexerJavaScript.Comment)
         self.setFont(self.__font, QsciLexerJavaScript.CommentDoc)
@@ -530,18 +711,30 @@ class LexerJavaScript(QsciLexerJavaScript):
 
 
 class LexerPython2(QsciLexerPython):
+    """
+    Python 2 Lexer.
+    """
+
     def __init__(self, font, parent=None):
+        """
+        Initializing method for LexerPython2.
+
+        :param font: QFont (must)
+        :param parent: QObject | None
+        """
+
+        # Super the class to the parent.
         super().__init__(parent)
 
+        # Defining the variables...
         self.__font = font
 
-        self.setDefaultFont(self.__font)
-        self.setFont(self.__font, QsciLexerPython.Comment)
-
+        # Initializing settings...
         self.setIndentationWarning(QsciLexerPython.IndentationWarning.Inconsistent)
         self.setV3BinaryOctalAllowed(False)
         self.setV3BytesAllowed(False)
 
+        # Setting default foreground color...
         self.setColor(QColor("#dd0000"), QsciLexerPython.Comment)
         self.setColor(QColor("#ff7700"), QsciLexerPython.Keyword)
         self.setColor(QColor("#0000ff"), QsciLexerPython.FunctionMethodName)
@@ -556,26 +749,50 @@ class LexerPython2(QsciLexerPython):
         self.setColor(QColor("#00aa00"), QsciLexerPython.TripleDoubleQuotedFString)
         self.setColor(QColor("#007700"), QsciLexerPython.UnclosedString)
 
+        # Setting default font...
+        self.setDefaultFont(self.__font)
+        self.setFont(self.__font, QsciLexerPython.Comment)
+
     def description(self, style):
+        """
+        Description: Python 2
+
+        :param style: Q_UNUSED(int)
+        :return: 'Python 2'
+        """
+
         return "Python 2"
 
 
 class LexerPython3(QsciLexerPython):
+    """
+    Python 3 Lexer.
+    """
+
     def __init__(self, font, parent=None):
+        """
+        Initializing method for LexerPython3.
+
+        :param font: QFont (must)
+        :param parent: QObject | None
+        """
+
+        # Super the class to the parent.
         super().__init__(parent)
 
+        # Defining variables...
         self.__font = font
 
-        self.setDefaultFont(self.__font)
-        self.setFont(self.__font, QsciLexerPython.Comment)
-
+        # Initializing folding settings...
         self.setFoldCompact(True)
         self.setFoldQuotes(True)
         self.setFoldComments(True)
 
+        # Initializing other settings...
         self.setIndentationWarning(QsciLexerPython.IndentationWarning.Inconsistent)
         self.setV2UnicodeAllowed(False)
 
+        # Setting default foreground color...
         self.setColor(QColor("#dd0000"), QsciLexerPython.Comment)
         self.setColor(QColor("#ff7700"), QsciLexerPython.Keyword)
         self.setColor(QColor("#0000ff"), QsciLexerPython.FunctionMethodName)
@@ -590,11 +807,31 @@ class LexerPython3(QsciLexerPython):
         self.setColor(QColor("#00aa00"), QsciLexerPython.TripleDoubleQuotedFString)
         self.setColor(QColor("#007700"), QsciLexerPython.UnclosedString)
 
+        # Setting default font...
+        self.setDefaultFont(self.__font)
+        self.setFont(self.__font, QsciLexerPython.Comment)
+
     def description(self, style):
+        """
+        Description: Python 3
+
+        :param style: Q_UNUSED(int)
+        :return: 'Python 3'
+        """
+
         return "Python 3"
 
     def keywords(self, style):
+        """
+        Returns the keywords of the python language.
+
+        :param style: int
+        :return: {import keywords; ' '.join(keywords.kwlist)}
+        """
+
         if style == 1:
+            # If style == 1:
+
             return ("False None True and as assert async await break class continue def del elif else except "
                     "finally for from global if import in is lambda nonlocal not or pass raise return try "
                     "while with yield")
