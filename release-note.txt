@@ -11,7 +11,7 @@
 
 Name: Txter
 Verifying Name: BrTxter
-Latest Version: 0.2.12 alpha
+Latest Version: 0.5.0 beta
 Earliest Supported Version: 0.2.0 alpha
 Software Category: Developing/Productivity
 Software Type: Freeware (free as in "freedom")
@@ -19,6 +19,21 @@ Software Type: Freeware (free as in "freedom")
 +----------------------+
 |Release notes and logs|
 +----------------------+
+
+0.5.0 alpha
+===========
+Date:
+    Windows: -NONE-
+    macOS: -NONE-
+-------------------
+  - Bug fixed:
+      1. Typo fixed.
+      2. Grammar error fixed.
+  - Functionalities added:
+      1. Tab interface added (Multiple-Document Interface MDI added)
+      2. File icon added.
+  - Remarks:
+      1. It's the beta version of this project.
 
 0.2.12 alpha
 ============
