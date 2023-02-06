@@ -17,7 +17,7 @@ You'll probably get something like this (screenshot on macOS 11):
 ![Screenshot of Txter 0.8.0](screen.png)
 
 ## What is Txter?
-Txter is a text editor. In another word, it is a source code editor. Developers can use Txter to develop software(s) and project(s) at lease 6 (six) programming languages.
+Txter is a text editor. In another word, it is a source code editor. Developers can use Txter to develop software(s) and project(s) at lease 7 (seven) programming languages.
 
 You can reproduce, copy, share, learn from it, change, mark and download any file(s) from this project unlimited times (until further notice), as it is a freeware.
 
