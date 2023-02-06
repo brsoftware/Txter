@@ -2,7 +2,7 @@
 Powerful and free source code editor for creative developers. 
 
 ## Install it.
-![https://sourceforge.net/projects/brtxter]
+https://sourceforge.net/projects/brtxter
 
 Or, build from the source.
 
