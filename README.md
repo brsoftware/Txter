@@ -26,6 +26,8 @@ You can do *a lot* with it! From basic text editing that you just need to remove
 
 ## Support for platforms
 
+Currently, only Microsoft Windows and Apple macOS are supported. GNU/Linux version of Txter will be supported soon.
+
 ## Supported Programming Languages
 Below table shows the languages that Txter currently supported.
 
