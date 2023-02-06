@@ -12,7 +12,9 @@ Then, download this repository. Unzip it.
 
 Find the file `main.py` inside the `src` directory. Run it.
 
-That's it.
+You'll probably get something like this (screenshot on macOS 11):
+
+![Screenshot of Txter 0.8.0](screen.png)
 
 ## What is Txter?
 Txter is a text editor. In another word, it is a source code editor. Developers can use Txter to develop software(s) and project(s) at lease 6 (six) programming languages.
