@@ -7,9 +7,9 @@ Project Name:                           Txter
 
 Project Name Identifier:                brTxter
 
-Project Version (for This File):        0.5.0
+Project Version (for This File):        0.8.0
 
-Project Status (for This File):         beta testing...
+Project Status (for This File):         Release candidates 1...
 
 Project Start Date:                     Dec 23, 2022 UTC
 

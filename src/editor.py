@@ -7,9 +7,9 @@ Project Name:                           Txter
 
 Project Name Identifier:                brTxter
 
-Project Version (for This File):        0.5.0
+Project Version (for This File):        0.8.0
 
-Project Status (for This File):         beta testing...
+Project Status (for This File):         Release candidates 1...
 
 Project Start Date:                     Dec 23, 2022 UTC
 
@@ -56,6 +56,7 @@ Bright Software Foundation 2022 - 2023
 
 
 # PyQt
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.Qsci import *
@@ -125,6 +126,9 @@ class Editor(QsciScintilla):
         # Lexer JavaScript
         self.__lexer_js = lexers.LexerJavaScript(self.__font)
 
+        # Lexer Markdown
+        self.__lexer_markdown = lexers.LexerMarkdown(self.__font)
+
         # Lexer Python
         self.__lexer_python = lexers.LexerPython3(self.__font)
 
@@ -148,6 +152,10 @@ class Editor(QsciScintilla):
         # A
         self.setAcceptDrops(True)
         self.setAutoIndent(True)
+        self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsAll)
+        self.setAutoCompletionThreshold(1)
+        self.setAutoCompletionCaseSensitivity(False)
+        self.setAutoCompletionReplaceWord(True)
 
         # B
         self.setBackspaceUnindents(True)
@@ -157,19 +165,24 @@ class Editor(QsciScintilla):
         self.setCaretForegroundColor(self.__caret_foreground_color)
         self.setCaretLineBackgroundColor(self.__caret_line_background_color)
         self.setCaretLineVisible(True)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
 
         # E
         self.setEolMode(QsciScintilla.EolUnix)
 
         # F
-        self.setFolding(QsciScintilla.FoldStyle.BoxedTreeFoldStyle)
+        self.setFolding(QsciScintilla.FoldStyle.BoxedTreeFoldStyle, 2)
         self.setFont(self.__font)
 
+        # I
+        self.setIndentationWidth(4)
+        self.setIndentationGuides(True)
+        self.setIndentationsUseTabs(False)
+
         # L
-        self.setLexer(self.__lexer_none)
+        # self.setLexer(self.__lexer_none)
 
         # M
-        self.setMargins(1)
         self.setMarginLineNumbers(0, True)
         self.setMarginsBackgroundColor(self.__margin_background_color)
         self.setMarginsFont(self.__font)
@@ -191,6 +204,75 @@ class Editor(QsciScintilla):
 
         self.cursorPositionChanged.connect(self.___inner_slot_pos_changed)
         self.selectionChanged.connect(self.___inner_slot_pos_changed)
+
+    def contextMenuEvent(self, event):
+        menu = QMenu()
+        
+        # Constructing the undo action.
+        # It undoes the last action you did.
+        __action_edit_undo = QAction()
+        __action_edit_undo.setText("&Undo")
+        __action_edit_undo.setShortcut(QKeySequence.StandardKey.Undo)
+        __action_edit_undo.setToolTip("Undo")
+        __action_edit_undo.setStatusTip("Undo: undoes the last action you did.")
+        __action_edit_undo.setEnabled(self.isUndoAvailable())
+        menu.addAction(__action_edit_undo)
+
+        # Constructing the redo action.
+        # It redoes the last action you did.
+        __action_edit_redo = QAction()
+        __action_edit_redo.setText("&Redo")
+        __action_edit_redo.setShortcut(QKeySequence.StandardKey.Redo)
+        __action_edit_redo.setToolTip("Redo")
+        __action_edit_redo.setStatusTip("Redo: redoes the last action you did.")
+        __action_edit_redo.setEnabled(self.isRedoAvailable())
+        menu.addAction(__action_edit_redo)
+
+        # Adding a separator...
+        menu.addSeparator()
+
+        # Constructing the cut action.
+        # It cuts the selected text.
+        __action_edit_cut = QAction()
+        __action_edit_cut.setText("&Cut")
+        __action_edit_cut.setShortcut(QKeySequence.StandardKey.Cut)
+        __action_edit_cut.setToolTip("Cut")
+        __action_edit_cut.setStatusTip("Cut: cuts the selected text.")
+        __action_edit_cut.setEnabled(self.hasSelectedText())
+        menu.addAction(__action_edit_cut)
+
+        # Constructing the copy action.
+        # It copies the selected text.
+        __action_edit_copy = QAction()
+        __action_edit_copy.setText("C&opy")
+        __action_edit_copy.setShortcut(QKeySequence.StandardKey.Copy)
+        __action_edit_copy.setToolTip("Copy")
+        __action_edit_copy.setStatusTip("Copy: copies the selected text.")
+        __action_edit_copy.setEnabled(self.hasSelectedText())
+        menu.addAction(__action_edit_copy)
+
+        # Constructing the paste action.
+        # It pastes the word in the system clipboard.
+        __action_edit_paste = QAction()
+        __action_edit_paste.setText("&Paste")
+        __action_edit_paste.setShortcut(QKeySequence.StandardKey.Paste)
+        __action_edit_paste.setToolTip("Paste")
+        __action_edit_paste.setStatusTip("Paste: pastes the word in the system clipboard.")
+        menu.addAction(__action_edit_paste)
+
+        # Adding a separator...
+        menu.addSeparator()
+
+        # Constructing the select all action.
+        # It selects all the text of the document.
+        __action_edit_select_all = QAction()
+        __action_edit_select_all.setText("Select &all")
+        __action_edit_select_all.setShortcut(QKeySequence.StandardKey.SelectAll)
+        __action_edit_select_all.setToolTip("Select all")
+        __action_edit_select_all.setStatusTip("Select all: selects all the text of the document.")
+        menu.addAction(__action_edit_select_all)
+
+        menu.exec_(self.mapToGlobal(event.pos()))
 
     def ___inner_slot_pos_changed(self):
         """
@@ -252,8 +334,8 @@ class Editor(QsciScintilla):
 
             self.setLexer(self.__lexer_none)
             self.setAutoIndent(True)
-            self.setIndentationGuides(False)
-            self.setIndentationWidth(0)
+            self.setIndentationGuides(True)
+            self.setIndentationWidth(4)
             self.setIndentationsUseTabs(False)
 
         self.setFont(self.__font)
@@ -407,6 +489,30 @@ class Editor(QsciScintilla):
 
         self.__lexer_var = "js"
 
+    def set_lexer_markdown(self, is_checked=True):
+        """
+        LexerMarkdown
+
+        :param is_checked: True always
+        :return: None
+        """
+
+        if is_checked:
+            # QAction.checked
+
+            self.setLexer(self.__lexer_markdown)
+            self.setAutoIndent(True)
+            self.setBraceMatching(QsciScintilla.BraceMatch.StrictBraceMatch)
+            self.setIndentationGuides(True)
+            self.setIndentationWidth(self.__indentation_width)
+
+        self.setFont(self.__font)
+        self.setMarginsFont(self.__font)
+        self.setMarginsBackgroundColor(self.__margin_background_color)
+        self.setMarginsForegroundColor(self.__margin_foreground_color)
+
+        self.__lexer_var = "md"
+
     def set_lexer_python(self, is_checked=True):
         """
         LexerPython3
@@ -541,6 +647,15 @@ class Editor(QsciScintilla):
         """
 
         return self.__lexer_var == "js"
+
+    def is_lexer_md(self):
+        """
+        Is LexerMarkdown in use?
+
+        :return: True if yes and False if not.
+        """
+
+        return self.__lexer_var == "md"
 
     def is_lexer_py2(self):
         """

@@ -7,9 +7,9 @@ Project Name:                           Txter
 
 Project Name Identifier:                brTxter
 
-Project Version (for This File):        0.5.0
+Project Version (for This File):        0.8.0
 
-Project Status (for This File):         beta testing...
+Project Status (for This File):         Release candidates 1...
 
 Project Start Date:                     Dec 23, 2022 UTC
 
@@ -48,7 +48,6 @@ File Belongs To:                        Txter / brTxter
 
 Bright Software Foundation 2022 - 2023
 """
-
 
 #
 # Importing packages and modules...
@@ -138,7 +137,7 @@ class LexerCPlusPlus(QsciLexerCPP):
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
 
-        # Setting fold commands...
+        # Setting fold settings...
         self.setFoldCompact(False)
         self.setFoldComments(True)
         self.setFoldAtElse(True)
@@ -168,39 +167,69 @@ class LexerCPlusPlus(QsciLexerCPP):
 
         # Setting default font...
         self.setDefaultFont(self.__font)
+        self.setFont(self.__font, QsciLexerCPP.Default)
         self.setFont(self.__font, QsciLexerCPP.Comment)
-        self.setFont(self.__font, QsciLexerCPP.CommentDoc)
-        self.setFont(self.__font, QsciLexerCPP.CommentDocKeyword)
-        self.setFont(self.__font, QsciLexerCPP.CommentDocKeywordError)
         self.setFont(self.__font, QsciLexerCPP.CommentLine)
-        self.setFont(self.__font, QsciLexerCPP.CommentLineDoc)
-        self.setFont(self.__font, QsciLexerCPP.InactiveComment)
-        self.setFont(self.__font, QsciLexerCPP.InactiveCommentDoc)
-        self.setFont(self.__font, QsciLexerCPP.InactiveCommentDocKeyword)
-        self.setFont(self.__font, QsciLexerCPP.InactiveCommentDocKeywordError)
-        self.setFont(self.__font, QsciLexerCPP.InactiveCommentLine)
-        self.setFont(self.__font, QsciLexerCPP.InactiveCommentLineDoc)
-        self.setFont(self.__font, QsciLexerCPP.SingleQuotedString)
-        self.setFont(self.__font, QsciLexerCPP.DoubleQuotedString)
-        self.setFont(self.__font, QsciLexerCPP.UnclosedString)
-        self.setFont(self.__font, QsciLexerCPP.RawString)
-        self.setFont(self.__font, QsciLexerCPP.VerbatimString)
-        self.setFont(self.__font, QsciLexerCPP.HashQuotedString)
-        self.setFont(self.__font, QsciLexerCPP.InactiveDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerCPP.InactiveHashQuotedString)
-        self.setFont(self.__font, QsciLexerCPP.InactiveRawString)
-        self.setFont(self.__font, QsciLexerCPP.InactiveSingleQuotedString)
-        self.setFont(self.__font, QsciLexerCPP.InactiveTripleQuotedVerbatimString)
-        self.setFont(self.__font, QsciLexerCPP.InactiveUnclosedString)
-        self.setFont(self.__font, QsciLexerCPP.InactiveVerbatimString)
-        self.setFont(self.__font, QsciLexerCPP.TripleQuotedVerbatimString)
-        self.setFont(self.__font, QsciLexerCPP.Operator)
-        self.setFont(self.__font, QsciLexerCPP.InactiveOperator)
+        self.setFont(self.__font, QsciLexerCPP.CommentDoc)
         self.setFont(self.__font, QsciLexerCPP.Number)
         self.setFont(self.__font, QsciLexerCPP.Keyword)
+        self.setFont(self.__font, QsciLexerCPP.DoubleQuotedString)
+        self.setFont(self.__font, QsciLexerCPP.SingleQuotedString)
+        self.setFont(self.__font, QsciLexerCPP.UUID)
+        self.setFont(self.__font, QsciLexerCPP.PreProcessor)
+        self.setFont(self.__font, QsciLexerCPP.Operator)
+        self.setFont(self.__font, QsciLexerCPP.Identifier)
+        self.setFont(self.__font, QsciLexerCPP.UnclosedString)
+        self.setFont(self.__font, QsciLexerCPP.VerbatimString)
+        self.setFont(self.__font, QsciLexerCPP.Regex)
+        self.setFont(self.__font, QsciLexerCPP.CommentLineDoc)
         self.setFont(self.__font, QsciLexerCPP.KeywordSet2)
+        self.setFont(self.__font, QsciLexerCPP.CommentDocKeyword)
+        self.setFont(self.__font, QsciLexerCPP.CommentDocKeywordError)
+        self.setFont(self.__font, QsciLexerCPP.GlobalClass)
+        self.setFont(self.__font, QsciLexerCPP.RawString)
+        self.setFont(self.__font, QsciLexerCPP.TripleQuotedVerbatimString)
+        self.setFont(self.__font, QsciLexerCPP.HashQuotedString)
+        self.setFont(self.__font, QsciLexerCPP.PreProcessorComment)
+        self.setFont(self.__font, QsciLexerCPP.PreProcessorCommentLineDoc)
+        self.setFont(self.__font, QsciLexerCPP.UserLiteral)
+        self.setFont(self.__font, QsciLexerCPP.TaskMarker)
+        self.setFont(self.__font, QsciLexerCPP.EscapeSequence)
+
+        # Setting inactive default font...
+        self.setFont(self.__font, QsciLexerCPP.InactiveDefault)
+        self.setFont(self.__font, QsciLexerCPP.InactiveComment)
+        self.setFont(self.__font, QsciLexerCPP.InactiveCommentLine)
+        self.setFont(self.__font, QsciLexerCPP.InactiveCommentDoc)
+        self.setFont(self.__font, QsciLexerCPP.InactiveNumber)
         self.setFont(self.__font, QsciLexerCPP.InactiveKeyword)
+        self.setFont(self.__font, QsciLexerCPP.InactiveDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerCPP.InactiveSingleQuotedString)
+        self.setFont(self.__font, QsciLexerCPP.InactiveUUID)
+        self.setFont(self.__font, QsciLexerCPP.InactivePreProcessor)
+        self.setFont(self.__font, QsciLexerCPP.InactiveOperator)
+        self.setFont(self.__font, QsciLexerCPP.InactiveIdentifier)
+        self.setFont(self.__font, QsciLexerCPP.InactiveUnclosedString)
+        self.setFont(self.__font, QsciLexerCPP.InactiveVerbatimString)
+        self.setFont(self.__font, QsciLexerCPP.InactiveRegex)
+        self.setFont(self.__font, QsciLexerCPP.InactiveCommentLineDoc)
         self.setFont(self.__font, QsciLexerCPP.InactiveKeywordSet2)
+        self.setFont(self.__font, QsciLexerCPP.InactiveCommentDocKeyword)
+        self.setFont(self.__font, QsciLexerCPP.InactiveCommentDocKeywordError)
+        self.setFont(self.__font, QsciLexerCPP.InactiveGlobalClass)
+        self.setFont(self.__font, QsciLexerCPP.InactiveRawString)
+        self.setFont(self.__font, QsciLexerCPP.InactiveTripleQuotedVerbatimString)
+        self.setFont(self.__font, QsciLexerCPP.InactiveHashQuotedString)
+        self.setFont(self.__font, QsciLexerCPP.InactivePreProcessorComment)
+        self.setFont(self.__font, QsciLexerCPP.InactivePreProcessorCommentLineDoc)
+        self.setFont(self.__font, QsciLexerCPP.InactiveUserLiteral)
+        self.setFont(self.__font, QsciLexerCPP.InactiveTaskMarker)
+        self.setFont(self.__font, QsciLexerCPP.InactiveEscapeSequence)
+
+        api = QsciAPIs(self)
+        for item in self.keywords(1).split(" "):
+            api.add(item)
+        api.prepare()
 
 
 class LexerCSS(QsciLexerCSS):
@@ -231,6 +260,10 @@ class LexerCSS(QsciLexerCSS):
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
 
+        # Setting folding settings...
+        self.setFoldCompact(False)
+        self.setFoldComments(True)
+
         # Setting default foreground color.
         self.setColor(self.__kw_color, QsciLexerCSS.ClassSelector)
         self.setColor(self.__kw_color, QsciLexerCSS.IDSelector)
@@ -241,9 +274,37 @@ class LexerCSS(QsciLexerCSS):
 
         # Setting default font.
         self.setDefaultFont(self.__font)
+        self.setFont(self.__font, QsciLexerCSS.Default)
+        self.setFont(self.__font, QsciLexerCSS.Tag)
+        self.setFont(self.__font, QsciLexerCSS.ClassSelector)
+        self.setFont(self.__font, QsciLexerCSS.PseudoClass)
+        self.setFont(self.__font, QsciLexerCSS.UnknownPseudoClass)
+        self.setFont(self.__font, QsciLexerCSS.Operator)
+        self.setFont(self.__font, QsciLexerCSS.CSS1Property)
+        self.setFont(self.__font, QsciLexerCSS.UnknownProperty)
+        self.setFont(self.__font, QsciLexerCSS.Value)
         self.setFont(self.__font, QsciLexerCSS.Comment)
-        self.setFont(self.__font, QsciLexerCSS.SingleQuotedString)
+        self.setFont(self.__font, QsciLexerCSS.IDSelector)
+        self.setFont(self.__font, QsciLexerCSS.Important)
+        self.setFont(self.__font, QsciLexerCSS.AtRule)
         self.setFont(self.__font, QsciLexerCSS.DoubleQuotedString)
+        self.setFont(self.__font, QsciLexerCSS.SingleQuotedString)
+        self.setFont(self.__font, QsciLexerCSS.CSS2Property)
+        self.setFont(self.__font, QsciLexerCSS.Attribute)
+        self.setFont(self.__font, QsciLexerCSS.CSS3Property)
+        self.setFont(self.__font, QsciLexerCSS.PseudoElement)
+        self.setFont(self.__font, QsciLexerCSS.ExtendedCSSProperty)
+        self.setFont(self.__font, QsciLexerCSS.ExtendedPseudoClass)
+        self.setFont(self.__font, QsciLexerCSS.ExtendedPseudoElement)
+        self.setFont(self.__font, QsciLexerCSS.MediaRule)
+        self.setFont(self.__font, QsciLexerCSS.Variable)
+
+        api = QsciAPIs(self)
+        for item in self.keywords(1).split(" "):
+            api.add(item)
+        for item in self.keywords(2).split(" "):
+            api.add(item)
+        api.prepare()
 
 
 class LexerHTML(QsciLexerHTML):
@@ -276,6 +337,12 @@ class LexerHTML(QsciLexerHTML):
 
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
+
+        # Setting folding settings...
+        self.setFoldCompact(False)
+        self.setFoldPreprocessor(True)
+        self.setFoldScriptComments(True)
+        self.setFoldScriptHeredocs(True)
 
         # Setting default foreground color...
         self.setDefaultColor(self.__default_color)
@@ -318,93 +385,129 @@ class LexerHTML(QsciLexerHTML):
 
         # Setting default font...
         self.setDefaultFont(self.__font)
-        self.setFont(self.__font, QsciLexerHTML.HTMLComment)
-        self.setFont(self.__font, QsciLexerHTML.SGMLComment)
-        self.setFont(self.__font, QsciLexerHTML.PHPComment)
-        self.setFont(self.__font, QsciLexerHTML.SGMLParameterComment)
-        self.setFont(self.__font, QsciLexerHTML.PHPCommentLine)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptComment)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonComment)
-        self.setFont(self.__font, QsciLexerHTML.ASPVBScriptComment)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptCommentLine)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptCommentDoc)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptCommentLine)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptCommentDoc)
-        self.setFont(self.__font, QsciLexerHTML.VBScriptComment)
-        self.setFont(self.__font, QsciLexerHTML.PythonComment)
-        self.setFont(self.__font, QsciLexerHTML.ASPXCComment)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptComment)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptKeyword)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptUnclosedString)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptSingleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptCommentLine)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptCommentDoc)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptDefault)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptRegex)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptNumber)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptStart)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptSymbol)
-        self.setFont(self.__font, QsciLexerHTML.JavaScriptWord)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptComment)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptKeyword)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptUnclosedString)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptSingleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptCommentLine)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptCommentDoc)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptDefault)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptRegex)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptNumber)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptStart)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptSymbol)
-        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptWord)
-        self.setFont(self.__font, QsciLexerHTML.PHPKeyword)
-        self.setFont(self.__font, QsciLexerHTML.PHPOperator)
-        self.setFont(self.__font, QsciLexerHTML.PHPSingleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.PHPDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.PHPCommentLine)
-        self.setFont(self.__font, QsciLexerHTML.PHPVariable)
-        self.setFont(self.__font, QsciLexerHTML.PHPDefault)
-        self.setFont(self.__font, QsciLexerHTML.PHPNumber)
-        self.setFont(self.__font, QsciLexerHTML.PHPStart)
-        self.setFont(self.__font, QsciLexerHTML.PHPVariable)
-        self.setFont(self.__font, QsciLexerHTML.PHPDoubleQuotedVariable)
-        self.setFont(self.__font, QsciLexerHTML.SGMLBlockDefault)
-        self.setFont(self.__font, QsciLexerHTML.SGMLSingleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.SGMLDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.SGMLParameter)
-        self.setFont(self.__font, QsciLexerHTML.SGMLEntity)
-        self.setFont(self.__font, QsciLexerHTML.SGMLDefault)
-        self.setFont(self.__font, QsciLexerHTML.SGMLError)
-        self.setFont(self.__font, QsciLexerHTML.SGMLSpecial)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonKeyword)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonTripleSingleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonSingleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonTripleDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonClassName)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonDefault)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonOperator)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonNumber)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonStart)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonFunctionMethodName)
-        self.setFont(self.__font, QsciLexerHTML.ASPPythonIdentifier)
-        self.setFont(self.__font, QsciLexerHTML.PythonKeyword)
-        self.setFont(self.__font, QsciLexerHTML.PythonTripleSingleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.PythonSingleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.PythonDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.PythonTripleDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerHTML.PythonClassName)
-        self.setFont(self.__font, QsciLexerHTML.PythonDefault)
-        self.setFont(self.__font, QsciLexerHTML.PythonOperator)
-        self.setFont(self.__font, QsciLexerHTML.PythonNumber)
-        self.setFont(self.__font, QsciLexerHTML.PythonStart)
-        self.setFont(self.__font, QsciLexerHTML.PythonFunctionMethodName)
-        self.setFont(self.__font, QsciLexerHTML.PythonIdentifier)
+        self.setFont(self.__font, QsciLexerHTML.Default)
         self.setFont(self.__font, QsciLexerHTML.Tag)
         self.setFont(self.__font, QsciLexerHTML.UnknownTag)
-        self.setFont(self.__font, QsciLexerHTML.Default)
+        self.setFont(self.__font, QsciLexerHTML.Attribute)
+        self.setFont(self.__font, QsciLexerHTML.UnknownAttribute)
+        self.setFont(self.__font, QsciLexerHTML.HTMLNumber)
+        self.setFont(self.__font, QsciLexerHTML.HTMLDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.HTMLSingleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.OtherInTag)
+        self.setFont(self.__font, QsciLexerHTML.HTMLComment)
+        self.setFont(self.__font, QsciLexerHTML.Entity)
+        self.setFont(self.__font, QsciLexerHTML.XMLTagEnd)
+        self.setFont(self.__font, QsciLexerHTML.XMLStart)
+        self.setFont(self.__font, QsciLexerHTML.XMLEnd)
+        self.setFont(self.__font, QsciLexerHTML.Script)
+        self.setFont(self.__font, QsciLexerHTML.ASPAtStart)
+        self.setFont(self.__font, QsciLexerHTML.ASPStart)
+        self.setFont(self.__font, QsciLexerHTML.CDATA)
+        self.setFont(self.__font, QsciLexerHTML.PHPStart)
+        self.setFont(self.__font, QsciLexerHTML.HTMLValue)
+        self.setFont(self.__font, QsciLexerHTML.ASPXCComment)
+        self.setFont(self.__font, QsciLexerHTML.SGMLDefault)
+        self.setFont(self.__font, QsciLexerHTML.SGMLCommand)
+        self.setFont(self.__font, QsciLexerHTML.SGMLParameter)
+        self.setFont(self.__font, QsciLexerHTML.SGMLDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.SGMLSingleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.SGMLError)
+        self.setFont(self.__font, QsciLexerHTML.SGMLSpecial)
+        self.setFont(self.__font, QsciLexerHTML.SGMLEntity)
+        self.setFont(self.__font, QsciLexerHTML.SGMLComment)
+        self.setFont(self.__font, QsciLexerHTML.SGMLParameterComment)
+        self.setFont(self.__font, QsciLexerHTML.SGMLBlockDefault)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptStart)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptDefault)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptComment)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptCommentLine)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptCommentDoc)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptNumber)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptWord)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptKeyword)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptSingleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptSymbol)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptUnclosedString)
+        self.setFont(self.__font, QsciLexerHTML.JavaScriptRegex)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptStart)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptDefault)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptComment)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptCommentLine)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptCommentDoc)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptNumber)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptWord)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptKeyword)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptSingleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptSymbol)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptUnclosedString)
+        self.setFont(self.__font, QsciLexerHTML.ASPJavaScriptRegex)
+        self.setFont(self.__font, QsciLexerHTML.VBScriptStart)
+        self.setFont(self.__font, QsciLexerHTML.VBScriptDefault)
+        self.setFont(self.__font, QsciLexerHTML.VBScriptComment)
+        self.setFont(self.__font, QsciLexerHTML.VBScriptNumber)
+        self.setFont(self.__font, QsciLexerHTML.VBScriptKeyword)
+        self.setFont(self.__font, QsciLexerHTML.VBScriptString)
+        self.setFont(self.__font, QsciLexerHTML.VBScriptIdentifier)
+        self.setFont(self.__font, QsciLexerHTML.VBScriptUnclosedString)
+        self.setFont(self.__font, QsciLexerHTML.ASPVBScriptStart)
+        self.setFont(self.__font, QsciLexerHTML.ASPVBScriptDefault)
+        self.setFont(self.__font, QsciLexerHTML.ASPVBScriptComment)
+        self.setFont(self.__font, QsciLexerHTML.ASPVBScriptNumber)
+        self.setFont(self.__font, QsciLexerHTML.ASPVBScriptKeyword)
+        self.setFont(self.__font, QsciLexerHTML.ASPVBScriptString)
+        self.setFont(self.__font, QsciLexerHTML.ASPVBScriptIdentifier)
+        self.setFont(self.__font, QsciLexerHTML.ASPVBScriptUnclosedString)
+        self.setFont(self.__font, QsciLexerHTML.PythonStart)
+        self.setFont(self.__font, QsciLexerHTML.PythonDefault)
+        self.setFont(self.__font, QsciLexerHTML.PythonComment)
+        self.setFont(self.__font, QsciLexerHTML.PythonNumber)
+        self.setFont(self.__font, QsciLexerHTML.PythonDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.PythonSingleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.PythonKeyword)
+        self.setFont(self.__font, QsciLexerHTML.PythonTripleSingleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.PythonTripleDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.PythonClassName)
+        self.setFont(self.__font, QsciLexerHTML.PythonFunctionMethodName)
+        self.setFont(self.__font, QsciLexerHTML.PythonOperator)
+        self.setFont(self.__font, QsciLexerHTML.PythonIdentifier)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonStart)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonDefault)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonComment)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonNumber)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonSingleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonKeyword)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonTripleSingleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonTripleDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonClassName)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonFunctionMethodName)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonOperator)
+        self.setFont(self.__font, QsciLexerHTML.ASPPythonIdentifier)
+        self.setFont(self.__font, QsciLexerHTML.PHPDefault)
+        self.setFont(self.__font, QsciLexerHTML.PHPDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.PHPSingleQuotedString)
+        self.setFont(self.__font, QsciLexerHTML.PHPKeyword)
+        self.setFont(self.__font, QsciLexerHTML.PHPNumber)
+        self.setFont(self.__font, QsciLexerHTML.PHPVariable)
+        self.setFont(self.__font, QsciLexerHTML.PHPComment)
+        self.setFont(self.__font, QsciLexerHTML.PHPCommentLine)
+        self.setFont(self.__font, QsciLexerHTML.PHPDoubleQuotedVariable)
+        self.setFont(self.__font, QsciLexerHTML.PHPOperator)
+
+        api = QsciAPIs(self)
+        for item in self.keywords(1).split(" "):
+            api.add(item)
+        for item in self.keywords(2).split(" "):
+            api.add(item)
+        for item in self.keywords(3).split(" "):
+            api.add(item)
+        for item in self.keywords(4).split(" "):
+            api.add(item)
+        for item in self.keywords(5).split(" "):
+            api.add(item)
+        api.prepare()
 
     def keywords(self, style):
         """
@@ -559,6 +662,12 @@ class LexerJava(QsciLexerJava):
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
 
+        # Setting folding settings...
+        self.setFoldCompact(False)
+        self.setFoldComments(True)
+        self.setFoldPreprocessor(True)
+        self.setFoldAtElse(True)
+
         # Setting default foreground color...
         self.setColor(self.__comment_kw_color, QsciLexerJava.CommentDocKeyword)
         self.setColor(self.__comment_kw_color, QsciLexerJava.InactiveCommentDocKeyword)
@@ -583,41 +692,71 @@ class LexerJava(QsciLexerJava):
 
         # Setting default font...
         self.setDefaultFont(self.__font)
+        self.setFont(self.__font, QsciLexerJava.Default)
         self.setFont(self.__font, QsciLexerJava.Comment)
-        self.setFont(self.__font, QsciLexerJava.CommentDoc)
-        self.setFont(self.__font, QsciLexerJava.CommentDocKeyword)
-        self.setFont(self.__font, QsciLexerJava.CommentDocKeywordError)
         self.setFont(self.__font, QsciLexerJava.CommentLine)
-        self.setFont(self.__font, QsciLexerJava.CommentLineDoc)
-        self.setFont(self.__font, QsciLexerJava.InactiveComment)
-        self.setFont(self.__font, QsciLexerJava.InactiveCommentDoc)
-        self.setFont(self.__font, QsciLexerJava.InactiveCommentDocKeyword)
-        self.setFont(self.__font, QsciLexerJava.InactiveCommentDocKeywordError)
-        self.setFont(self.__font, QsciLexerJava.InactiveCommentLine)
-        self.setFont(self.__font, QsciLexerJava.InactiveCommentLineDoc)
-        self.setFont(self.__font, QsciLexerJava.SingleQuotedString)
-        self.setFont(self.__font, QsciLexerJava.DoubleQuotedString)
-        self.setFont(self.__font, QsciLexerJava.UnclosedString)
-        self.setFont(self.__font, QsciLexerJava.RawString)
-        self.setFont(self.__font, QsciLexerJava.VerbatimString)
-        self.setFont(self.__font, QsciLexerJava.HashQuotedString)
-        self.setFont(self.__font, QsciLexerJava.InactiveDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerJava.InactiveHashQuotedString)
-        self.setFont(self.__font, QsciLexerJava.InactiveRawString)
-        self.setFont(self.__font, QsciLexerJava.InactiveSingleQuotedString)
-        self.setFont(self.__font, QsciLexerJava.InactiveTripleQuotedVerbatimString)
-        self.setFont(self.__font, QsciLexerJava.InactiveUnclosedString)
-        self.setFont(self.__font, QsciLexerJava.InactiveVerbatimString)
-        self.setFont(self.__font, QsciLexerJava.TripleQuotedVerbatimString)
-        self.setFont(self.__font, QsciLexerJava.Operator)
-        self.setFont(self.__font, QsciLexerJava.InactiveOperator)
+        self.setFont(self.__font, QsciLexerJava.CommentDoc)
         self.setFont(self.__font, QsciLexerJava.Number)
         self.setFont(self.__font, QsciLexerJava.Keyword)
+        self.setFont(self.__font, QsciLexerJava.DoubleQuotedString)
+        self.setFont(self.__font, QsciLexerJava.SingleQuotedString)
+        self.setFont(self.__font, QsciLexerJava.UUID)
+        self.setFont(self.__font, QsciLexerJava.PreProcessor)
+        self.setFont(self.__font, QsciLexerJava.Operator)
+        self.setFont(self.__font, QsciLexerJava.Identifier)
+        self.setFont(self.__font, QsciLexerJava.UnclosedString)
+        self.setFont(self.__font, QsciLexerJava.VerbatimString)
+        self.setFont(self.__font, QsciLexerJava.Regex)
+        self.setFont(self.__font, QsciLexerJava.CommentLineDoc)
         self.setFont(self.__font, QsciLexerJava.KeywordSet2)
+        self.setFont(self.__font, QsciLexerJava.CommentDocKeyword)
+        self.setFont(self.__font, QsciLexerJava.CommentDocKeywordError)
+        self.setFont(self.__font, QsciLexerJava.GlobalClass)
+        self.setFont(self.__font, QsciLexerJava.RawString)
+        self.setFont(self.__font, QsciLexerJava.TripleQuotedVerbatimString)
+        self.setFont(self.__font, QsciLexerJava.HashQuotedString)
+        self.setFont(self.__font, QsciLexerJava.PreProcessorComment)
+        self.setFont(self.__font, QsciLexerJava.PreProcessorCommentLineDoc)
+        self.setFont(self.__font, QsciLexerJava.UserLiteral)
+        self.setFont(self.__font, QsciLexerJava.TaskMarker)
+        self.setFont(self.__font, QsciLexerJava.EscapeSequence)
+
+        # Setting inactive default font...
+        self.setFont(self.__font, QsciLexerJava.InactiveDefault)
+        self.setFont(self.__font, QsciLexerJava.InactiveComment)
+        self.setFont(self.__font, QsciLexerJava.InactiveCommentLine)
+        self.setFont(self.__font, QsciLexerJava.InactiveCommentDoc)
+        self.setFont(self.__font, QsciLexerJava.InactiveNumber)
         self.setFont(self.__font, QsciLexerJava.InactiveKeyword)
+        self.setFont(self.__font, QsciLexerJava.InactiveDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerJava.InactiveSingleQuotedString)
+        self.setFont(self.__font, QsciLexerJava.InactiveUUID)
+        self.setFont(self.__font, QsciLexerJava.InactivePreProcessor)
+        self.setFont(self.__font, QsciLexerJava.InactiveOperator)
+        self.setFont(self.__font, QsciLexerJava.InactiveIdentifier)
+        self.setFont(self.__font, QsciLexerJava.InactiveUnclosedString)
+        self.setFont(self.__font, QsciLexerJava.InactiveVerbatimString)
+        self.setFont(self.__font, QsciLexerJava.InactiveRegex)
+        self.setFont(self.__font, QsciLexerJava.InactiveCommentLineDoc)
         self.setFont(self.__font, QsciLexerJava.InactiveKeywordSet2)
-        
-        
+        self.setFont(self.__font, QsciLexerJava.InactiveCommentDocKeyword)
+        self.setFont(self.__font, QsciLexerJava.InactiveCommentDocKeywordError)
+        self.setFont(self.__font, QsciLexerJava.InactiveGlobalClass)
+        self.setFont(self.__font, QsciLexerJava.InactiveRawString)
+        self.setFont(self.__font, QsciLexerJava.InactiveTripleQuotedVerbatimString)
+        self.setFont(self.__font, QsciLexerJava.InactiveHashQuotedString)
+        self.setFont(self.__font, QsciLexerJava.InactivePreProcessorComment)
+        self.setFont(self.__font, QsciLexerJava.InactivePreProcessorCommentLineDoc)
+        self.setFont(self.__font, QsciLexerJava.InactiveUserLiteral)
+        self.setFont(self.__font, QsciLexerJava.InactiveTaskMarker)
+        self.setFont(self.__font, QsciLexerJava.InactiveEscapeSequence)
+
+        api = QsciAPIs(self)
+        for item in self.keywords(1).split(" "):
+            api.add(item)
+        api.prepare()
+
+
 class LexerJavaScript(QsciLexerJavaScript):
     """
     JavaScript Lexer.
@@ -649,6 +788,12 @@ class LexerJavaScript(QsciLexerJavaScript):
         self.__string_color = QColor()
         self.__string_color.setNamedColor("#00aa00")
 
+        # Setting folding settings...
+        self.setFoldCompact(False)
+        self.setFoldComments(True)
+        self.setFoldPreprocessor(True)
+        self.setFoldAtElse(True)
+
         # Setting default foreground color...
         self.setDefaultColor(self.__default_color)
 
@@ -675,39 +820,130 @@ class LexerJavaScript(QsciLexerJavaScript):
 
         # Setting default font...
         self.setDefaultFont(self.__font)
+        self.setFont(self.__font, QsciLexerJavaScript.Default)
         self.setFont(self.__font, QsciLexerJavaScript.Comment)
-        self.setFont(self.__font, QsciLexerJavaScript.CommentDoc)
-        self.setFont(self.__font, QsciLexerJavaScript.CommentDocKeyword)
-        self.setFont(self.__font, QsciLexerJavaScript.CommentDocKeywordError)
         self.setFont(self.__font, QsciLexerJavaScript.CommentLine)
-        self.setFont(self.__font, QsciLexerJavaScript.CommentLineDoc)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveComment)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveCommentDoc)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveCommentDocKeyword)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveCommentDocKeywordError)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveCommentLine)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveCommentLineDoc)
-        self.setFont(self.__font, QsciLexerJavaScript.SingleQuotedString)
-        self.setFont(self.__font, QsciLexerJavaScript.DoubleQuotedString)
-        self.setFont(self.__font, QsciLexerJavaScript.UnclosedString)
-        self.setFont(self.__font, QsciLexerJavaScript.RawString)
-        self.setFont(self.__font, QsciLexerJavaScript.VerbatimString)
-        self.setFont(self.__font, QsciLexerJavaScript.HashQuotedString)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveDoubleQuotedString)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveHashQuotedString)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveRawString)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveSingleQuotedString)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveTripleQuotedVerbatimString)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveUnclosedString)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveVerbatimString)
-        self.setFont(self.__font, QsciLexerJavaScript.TripleQuotedVerbatimString)
-        self.setFont(self.__font, QsciLexerJavaScript.Operator)
-        self.setFont(self.__font, QsciLexerJavaScript.InactiveOperator)
+        self.setFont(self.__font, QsciLexerJavaScript.CommentDoc)
         self.setFont(self.__font, QsciLexerJavaScript.Number)
         self.setFont(self.__font, QsciLexerJavaScript.Keyword)
+        self.setFont(self.__font, QsciLexerJavaScript.DoubleQuotedString)
+        self.setFont(self.__font, QsciLexerJavaScript.SingleQuotedString)
+        self.setFont(self.__font, QsciLexerJavaScript.UUID)
+        self.setFont(self.__font, QsciLexerJavaScript.PreProcessor)
+        self.setFont(self.__font, QsciLexerJavaScript.Operator)
+        self.setFont(self.__font, QsciLexerJavaScript.Identifier)
+        self.setFont(self.__font, QsciLexerJavaScript.UnclosedString)
+        self.setFont(self.__font, QsciLexerJavaScript.VerbatimString)
+        self.setFont(self.__font, QsciLexerJavaScript.Regex)
+        self.setFont(self.__font, QsciLexerJavaScript.CommentLineDoc)
         self.setFont(self.__font, QsciLexerJavaScript.KeywordSet2)
+        self.setFont(self.__font, QsciLexerJavaScript.CommentDocKeyword)
+        self.setFont(self.__font, QsciLexerJavaScript.CommentDocKeywordError)
+        self.setFont(self.__font, QsciLexerJavaScript.GlobalClass)
+        self.setFont(self.__font, QsciLexerJavaScript.RawString)
+        self.setFont(self.__font, QsciLexerJavaScript.TripleQuotedVerbatimString)
+        self.setFont(self.__font, QsciLexerJavaScript.HashQuotedString)
+        self.setFont(self.__font, QsciLexerJavaScript.PreProcessorComment)
+        self.setFont(self.__font, QsciLexerJavaScript.PreProcessorCommentLineDoc)
+        self.setFont(self.__font, QsciLexerJavaScript.UserLiteral)
+        self.setFont(self.__font, QsciLexerJavaScript.TaskMarker)
+        self.setFont(self.__font, QsciLexerJavaScript.EscapeSequence)
+
+        # Setting inactive default font...
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveDefault)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveComment)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveCommentLine)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveCommentDoc)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveNumber)
         self.setFont(self.__font, QsciLexerJavaScript.InactiveKeyword)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveSingleQuotedString)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveUUID)
+        self.setFont(self.__font, QsciLexerJavaScript.InactivePreProcessor)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveOperator)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveIdentifier)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveUnclosedString)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveVerbatimString)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveRegex)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveCommentLineDoc)
         self.setFont(self.__font, QsciLexerJavaScript.InactiveKeywordSet2)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveCommentDocKeyword)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveCommentDocKeywordError)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveGlobalClass)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveRawString)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveTripleQuotedVerbatimString)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveHashQuotedString)
+        self.setFont(self.__font, QsciLexerJavaScript.InactivePreProcessorComment)
+        self.setFont(self.__font, QsciLexerJavaScript.InactivePreProcessorCommentLineDoc)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveUserLiteral)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveTaskMarker)
+        self.setFont(self.__font, QsciLexerJavaScript.InactiveEscapeSequence)
+
+        api = QsciAPIs(self)
+        for item in self.keywords(1).split(" "):
+            api.add(item)
+        api.prepare()
+
+
+class LexerMarkdown(QsciLexerMarkdown):
+    """
+    Lexer Markdown.
+    """
+
+    def __init__(self, font, parent=None):
+        """
+        Initializing method for LexerMarkdown.
+
+        :param font: QFont (must)
+        :param parent: QObject | None
+        """
+
+        # super the class to the parent.
+        super().__init__(parent)
+
+        # Defining the variables...
+        self.__font = font
+
+        self.__block_quote_color = QColor()
+        self.__block_quote_color.setNamedColor("#888888")
+
+        self.__link_paper = QColor()
+        self.__link_paper.setNamedColor("#ffffff")
+
+        self.__horizontal_rule_paper = QColor()
+        self.__horizontal_rule_paper.setNamedColor("#aaaaaa")
+
+        # Setting default colors
+        self.setColor(self.__block_quote_color, QsciLexerMarkdown.BlockQuote)
+
+        # Setting default papers
+        self.setPaper(self.__link_paper, QsciLexerMarkdown.Link)
+        self.setPaper(self.__horizontal_rule_paper, QsciLexerMarkdown.HorizontalRule)
+
+        # Setting default fonts
+        self.setDefaultFont(self.__font)
+        self.setFont(self.__font, QsciLexerMarkdown.Default)
+        self.setFont(self.__font, QsciLexerMarkdown.Special)
+        self.setFont(self.__font, QsciLexerMarkdown.StrongEmphasisAsterisks)
+        self.setFont(self.__font, QsciLexerMarkdown.StrongEmphasisUnderscores)
+        self.setFont(self.__font, QsciLexerMarkdown.EmphasisAsterisks)
+        self.setFont(self.__font, QsciLexerMarkdown.EmphasisUnderscores)
+        self.setFont(self.__font, QsciLexerMarkdown.Header1)
+        self.setFont(self.__font, QsciLexerMarkdown.Header2)
+        self.setFont(self.__font, QsciLexerMarkdown.Header3)
+        self.setFont(self.__font, QsciLexerMarkdown.Header4)
+        self.setFont(self.__font, QsciLexerMarkdown.Header5)
+        self.setFont(self.__font, QsciLexerMarkdown.Header6)
+        self.setFont(self.__font, QsciLexerMarkdown.Prechar)
+        self.setFont(self.__font, QsciLexerMarkdown.UnorderedListItem)
+        self.setFont(self.__font, QsciLexerMarkdown.OrderedListItem)
+        self.setFont(self.__font, QsciLexerMarkdown.BlockQuote)
+        self.setFont(self.__font, QsciLexerMarkdown.StrikeOut)
+        self.setFont(self.__font, QsciLexerMarkdown.HorizontalRule)
+        self.setFont(self.__font, QsciLexerMarkdown.Link)
+        self.setFont(self.__font, QsciLexerMarkdown.CodeBackticks)
+        self.setFont(self.__font, QsciLexerMarkdown.CodeDoubleBackticks)
+        self.setFont(self.__font, QsciLexerMarkdown.CodeBlock)
 
 
 class LexerPython2(QsciLexerPython):
@@ -729,7 +965,12 @@ class LexerPython2(QsciLexerPython):
         # Defining the variables...
         self.__font = font
 
-        # Initializing settings...
+        # Setting folding settings...
+        self.setFoldCompact(False)
+        self.setFoldComments(True)
+        self.setFoldQuotes(True)
+
+        # Setting other settings...
         self.setIndentationWarning(QsciLexerPython.IndentationWarning.Inconsistent)
         self.setV3BinaryOctalAllowed(False)
         self.setV3BytesAllowed(False)
@@ -751,7 +992,31 @@ class LexerPython2(QsciLexerPython):
 
         # Setting default font...
         self.setDefaultFont(self.__font)
+        self.setFont(self.__font, QsciLexerPython.Default)
         self.setFont(self.__font, QsciLexerPython.Comment)
+        self.setFont(self.__font, QsciLexerPython.Number)
+        self.setFont(self.__font, QsciLexerPython.DoubleQuotedString)
+        self.setFont(self.__font, QsciLexerPython.SingleQuotedString)
+        self.setFont(self.__font, QsciLexerPython.Keyword)
+        self.setFont(self.__font, QsciLexerPython.TripleSingleQuotedString)
+        self.setFont(self.__font, QsciLexerPython.TripleDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerPython.ClassName)
+        self.setFont(self.__font, QsciLexerPython.FunctionMethodName)
+        self.setFont(self.__font, QsciLexerPython.Operator)
+        self.setFont(self.__font, QsciLexerPython.Identifier)
+        self.setFont(self.__font, QsciLexerPython.CommentBlock)
+        self.setFont(self.__font, QsciLexerPython.UnclosedString)
+        self.setFont(self.__font, QsciLexerPython.HighlightedIdentifier)
+        self.setFont(self.__font, QsciLexerPython.Decorator)
+        self.setFont(self.__font, QsciLexerPython.DoubleQuotedFString)
+        self.setFont(self.__font, QsciLexerPython.SingleQuotedFString)
+        self.setFont(self.__font, QsciLexerPython.TripleSingleQuotedFString)
+        self.setFont(self.__font, QsciLexerPython.TripleDoubleQuotedFString)
+
+        api = QsciAPIs(self)
+        for item in self.keywords(1).split(" "):
+            api.add(item)
+        api.prepare()
 
     def description(self, style):
         """
@@ -784,7 +1049,7 @@ class LexerPython3(QsciLexerPython):
         self.__font = font
 
         # Initializing folding settings...
-        self.setFoldCompact(True)
+        self.setFoldCompact(False)
         self.setFoldQuotes(True)
         self.setFoldComments(True)
 
@@ -809,7 +1074,33 @@ class LexerPython3(QsciLexerPython):
 
         # Setting default font...
         self.setDefaultFont(self.__font)
+        self.setFont(self.__font, QsciLexerPython.Default)
         self.setFont(self.__font, QsciLexerPython.Comment)
+        self.setFont(self.__font, QsciLexerPython.Number)
+        self.setFont(self.__font, QsciLexerPython.DoubleQuotedString)
+        self.setFont(self.__font, QsciLexerPython.SingleQuotedString)
+        self.setFont(self.__font, QsciLexerPython.Keyword)
+        self.setFont(self.__font, QsciLexerPython.TripleSingleQuotedString)
+        self.setFont(self.__font, QsciLexerPython.TripleDoubleQuotedString)
+        self.setFont(self.__font, QsciLexerPython.ClassName)
+        self.setFont(self.__font, QsciLexerPython.FunctionMethodName)
+        self.setFont(self.__font, QsciLexerPython.Operator)
+        self.setFont(self.__font, QsciLexerPython.Identifier)
+        self.setFont(self.__font, QsciLexerPython.CommentBlock)
+        self.setFont(self.__font, QsciLexerPython.UnclosedString)
+        self.setFont(self.__font, QsciLexerPython.HighlightedIdentifier)
+        self.setFont(self.__font, QsciLexerPython.Decorator)
+        self.setFont(self.__font, QsciLexerPython.DoubleQuotedFString)
+        self.setFont(self.__font, QsciLexerPython.SingleQuotedFString)
+        self.setFont(self.__font, QsciLexerPython.TripleSingleQuotedFString)
+        self.setFont(self.__font, QsciLexerPython.TripleDoubleQuotedFString)
+
+        api = QsciAPIs(self)
+        for item in ("False None True and as assert async await break class continue def del elif else except "
+                     "finally for from global if import in is lambda nonlocal not or pass raise return try "
+                     "while with yield").split(" "):
+            api.add(item)
+        api.prepare()
 
     def description(self, style):
         """

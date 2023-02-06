@@ -7,9 +7,9 @@ Project Name:                           Txter
 
 Project Name Identifier:                brTxter
 
-Project Version (for This File):        0.5.0
+Project Version (for This File):        0.8.0
 
-Project Status (for This File):         beta testing...
+Project Status (for This File):         Release candidates 1...
 
 Project Start Date:                     Dec 23, 2022 UTC
 
@@ -125,6 +125,35 @@ class FindDialog(QDialog):
 
         self.__layout.addLayout(self.__find_layout)
 
+        self.__option_gb = QGroupBox()
+        self.__option_gb.setTitle("Options")
+
+        self.__gb_layout = QGridLayout()
+
+        self.__check_re = QCheckBox()
+        self.__check_re.setText("Use &regular expressions")
+        self.__check_re.setChecked(True)
+        self.__gb_layout.addWidget(self.__check_re)
+
+        self.__check_cs = QCheckBox()
+        self.__check_cs.setText("&Case sensitive")
+        self.__check_cs.setChecked(True)
+        self.__gb_layout.addWidget(self.__check_cs)
+
+        self.__check_wo = QCheckBox()
+        self.__check_wo.setText("&Find whole word only")
+        self.__check_wo.setChecked(True)
+        self.__gb_layout.addWidget(self.__check_wo)
+
+        self.__check_wrap = QCheckBox()
+        self.__check_wrap.setText("Wr&ap the document")
+        self.__check_wrap.setChecked(True)
+        self.__gb_layout.addWidget(self.__check_wrap)
+
+        self.__option_gb.setLayout(self.__gb_layout)
+
+        self.__layout.addWidget(self.__option_gb)
+
         self.__box = QDialogButtonBox()
         self.__ok = QPushButton()
         self.__ok.setText("&Find next")
@@ -146,7 +175,12 @@ class FindDialog(QDialog):
         :return: None
         """
 
-        self.__parent.findFirst(self.__find_entry.text(), True, True, True, True, True)
+        self.__parent.findFirst(self.__find_entry.text(),
+                                self.__check_re.isChecked(),
+                                self.__check_cs.isChecked(),
+                                self.__check_wo.isChecked(),
+                                self.__check_wrap.isChecked(),
+                                True)
 
 
 class ReplaceDialog(QDialog):
@@ -194,6 +228,35 @@ class ReplaceDialog(QDialog):
 
         self.__layout.addLayout(self.__find_layout)
 
+        self.__option_gb = QGroupBox()
+        self.__option_gb.setTitle("Options for finding Targets")
+
+        self.__gb_layout = QGridLayout()
+
+        self.__check_re = QCheckBox()
+        self.__check_re.setText("Use &regular expressions")
+        self.__check_re.setChecked(True)
+        self.__gb_layout.addWidget(self.__check_re)
+
+        self.__check_cs = QCheckBox()
+        self.__check_cs.setText("&Case sensitive")
+        self.__check_cs.setChecked(True)
+        self.__gb_layout.addWidget(self.__check_cs)
+
+        self.__check_wo = QCheckBox()
+        self.__check_wo.setText("&Find whole word only")
+        self.__check_wo.setChecked(True)
+        self.__gb_layout.addWidget(self.__check_wo)
+
+        self.__check_wrap = QCheckBox()
+        self.__check_wrap.setText("Wr&ap the document")
+        self.__check_wrap.setChecked(True)
+        self.__gb_layout.addWidget(self.__check_wrap)
+
+        self.__option_gb.setLayout(self.__gb_layout)
+
+        self.__layout.addWidget(self.__option_gb)
+
         self.__box = QDialogButtonBox()
         self.__ok = QPushButton()
         self.__ok.setText("&Replace")
@@ -219,7 +282,12 @@ class ReplaceDialog(QDialog):
         :return: None
         """
 
-        self.__parent.findFirst(self.__find_entry.text(), True, True, True, True, True)
+        self.__parent.findFirst(self.__find_entry.text(),
+                                self.__check_re.isChecked(),
+                                self.__check_cs.isChecked(),
+                                self.__check_wo.isChecked(),
+                                self.__check_wrap.isChecked(),
+                                True)
         self.__parent.replace(self.__replace_entry.text())
 
     def ___inner_slot_replace_all(self):
@@ -232,8 +300,12 @@ class ReplaceDialog(QDialog):
         # QTextCursor.beginEditBlock()
         self.__parent.beginUndoAction()
 
-        while self.__parent.findFirst(self.__find_entry.text(), True, True, True, True, True):
-
+        while (self.__parent.findFirst(self.__find_entry.text(),
+                                       self.__check_re.isChecked(),
+                                       self.__check_cs.isChecked(),
+                                       self.__check_wo.isChecked(),
+                                       self.__check_wrap.isChecked(),
+                                       True)):
             self.__parent.replace(self.__replace_entry.text())
 
         # QTextCursor.endEditBlock()
@@ -305,7 +377,6 @@ class GotoDialog(QDialog):
             self.__parent.setCursorPosition(int(self.__line_number_entry.text()) - 1, 0)
 
             if int(self.__find_entry.text()) > len(self.__parent.text().split("\n")):
-
                 raise ValueError(f"The line numbered {self.__line_number_entry.text()} is overflowed.")
 
             self.close()

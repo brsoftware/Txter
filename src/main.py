@@ -7,9 +7,9 @@ Project Name:                           Txter
 
 Project Name Identifier:                brTxter
 
-Project Version (for This File):        0.5.0
+Project Version (for This File):        0.8.0
 
-Project Status (for This File):         beta testing...
+Project Status (for This File):         Release candidates 1...
 
 Project Start Date:                     Dec 23, 2022 UTC
 
@@ -114,6 +114,9 @@ class MainWindow(QMainWindow):
             "Java class archive (*.jar)",
             "Java files (*.java; *.jar)",
             "JavaScript file (*.js)",
+            "Markdown file (*.md)",
+            "Markdown file (*.markdown)",
+            "Markdown files (*.md; *.markdown)",
             "PyInstaller files (*.spec)",
             "Python script (*.py)",
             "Python console-less scripts (*.pyw)",
@@ -140,6 +143,8 @@ class MainWindow(QMainWindow):
             "Java code (*.java)",
             "Java class archive (*.jar)",
             "JavaScript file (*.js)",
+            "Markdown file (*.md)",
+            "Markdown file (*.markdown)",
             "PyInstaller files (*.spec)",
             "Python script (*.py)",
             "Python console-less scripts (*.pyw)",
@@ -161,17 +166,20 @@ class MainWindow(QMainWindow):
             "HTML": "Language: HTML (HyperText Markup Language)",
             "Java": "Language: Java",
             "JS": "Language: JS (JavaScript)",
+            "Markdown": "Language: MD (MarkDown)",
             "Python": "Language: Python (Python 3)",
             "py2": "Language: Python (Python 2)",
             "No": "Language: None"
         }
 
         # Images there...
+        self.__icon_self = QIcon("icon.ico")
         self.__image_c_plus_plus = QIcon("icons/file-c-plus-plus.png")
         self.__image_css = QIcon("icons/file-css.png")
         self.__image_html = QIcon("icons/file-html.png")
         self.__image_java = QIcon("icons/file-java.png")
         self.__image_js = QIcon("icons/file-js.png")
+        self.__image_md = QIcon("icons/file-markdown.png")
         self.__image_normal = QIcon("icons/file-normal.png")
         self.__image_python = QIcon("icons/file-python.png")
         self.__image_text = QIcon("icons/file-text.png")
@@ -184,6 +192,7 @@ class MainWindow(QMainWindow):
             self.__image_html = QIcon("images/file-html.png")
             self.__image_java = QIcon("images/file-java.png")
             self.__image_js = QIcon("images/file-js.png")
+            self.__image_md = QIcon("images/file-markdown.png")
             self.__image_python = QIcon("images/file-python.png")
             self.__image_text = QIcon("images/file-text.png")
 
@@ -202,7 +211,7 @@ class MainWindow(QMainWindow):
         :return:
         """
 
-        self.__ed = editor.Editor()
+        self.__ed = editor.Editor(self)
         self.__ed.set_lexer_none()
         # self.setCentralWidget(self.__ed)
 
@@ -679,6 +688,21 @@ class MainWindow(QMainWindow):
         self.__action_format_lang_js.setChecked(False)
         self.__format_lang_js_menu.addAction(self.__action_format_lang_js)
 
+        # Constructing the Markdown menu, inside the language menu.
+        self.__format_lang_md_menu = QMenu()
+        self.__format_lang_md_menu.setTitle("&Markdown")
+        self.__format_lang_menu.addMenu(self.__format_lang_md_menu)
+
+        # Constructing the Markdown language action.
+        # It sets the syntax settings as Markdown.
+        self.__action_format_lang_md = QAction()
+        self.__action_format_lang_md.setText("&Markdown")
+        self.__action_format_lang_md.setToolTip("Markdown")
+        self.__action_format_lang_md.setStatusTip("Markdown: sets the syntax settings as Markdown.")
+        self.__action_format_lang_md.setCheckable(True)
+        self.__action_format_lang_md.setChecked(False)
+        self.__format_lang_md_menu.addAction(self.__action_format_lang_md)
+
         # Constructing the Python menu.
         self.__format_lang_python_menu = QMenu()
         self.__format_lang_python_menu.setTitle("&Python")
@@ -714,6 +738,7 @@ class MainWindow(QMainWindow):
         self.__action_group_format_lang.addAction(self.__action_format_lang_html)
         self.__action_group_format_lang.addAction(self.__action_format_lang_java)
         self.__action_group_format_lang.addAction(self.__action_format_lang_js)
+        self.__action_group_format_lang.addAction(self.__action_format_lang_md)
         self.__action_group_format_lang.addAction(self.__action_format_lang_python)
         self.__action_group_format_lang.addAction(self.__action_format_lang_python_2)
 
@@ -835,6 +860,7 @@ class MainWindow(QMainWindow):
         self.__action_format_lang_html_mako.triggered.connect(self.__ed.set_lexer_html_mako)
         self.__action_format_lang_java.triggered.connect(self.__slot_format_lang_java)
         self.__action_format_lang_js.triggered.connect(self.__slot_format_lang_js)
+        self.__action_format_lang_md.triggered.connect(self.__slot_format_lang_md)
         self.__action_format_lang_python_2.triggered.connect(self.__slot_format_lang_python_2)
         self.__action_format_lang_python.triggered.connect(self.__slot_format_lang_python_3)
 
@@ -863,7 +889,9 @@ class MainWindow(QMainWindow):
         :return: None
         """
 
-        # self.setWindowIcon(self.__image_normal)
+        self.resize(QSize(600, 400))
+        if sys.platform != "darwin":
+            self.setWindowIcon(self.__icon_self)
         self.setWindowTitle(f"Untitled - Txter")
         self.showMaximized()
 
@@ -1082,6 +1110,7 @@ class MainWindow(QMainWindow):
             lexer_html_mako = self.__ed.is_lexer_html_mako()
             lexer_java = self.__ed.is_lexer_java()
             lexer_js = self.__ed.is_lexer_js()
+            lexer_md = self.__ed.is_lexer_md()
             lexer_py = self.__ed.is_lexer_py()
             lexer_py2 = self.__ed.is_lexer_py2()
 
@@ -1094,6 +1123,7 @@ class MainWindow(QMainWindow):
             self.__action_format_lang_html_mako.setChecked(lexer_html_mako)
             self.__action_format_lang_java.setChecked(lexer_java)
             self.__action_format_lang_js.setChecked(lexer_js)
+            self.__action_format_lang_md.setChecked(lexer_md)
             self.__action_format_lang_python.setChecked(lexer_py)
             self.__action_format_lang_python_2.setChecked(lexer_py2)
 
@@ -1128,6 +1158,11 @@ class MainWindow(QMainWindow):
                 # Language JS (JavaScript)
 
                 self.__lang_label.setText(self.lang["JS"])
+
+            elif lexer_md:
+                # Language MD (MarkDown)
+
+                self.__lang_label.setText(self.lang["Markdown"])
 
             elif lexer_py:
                 # Language Python (Python 3)
@@ -1377,6 +1412,16 @@ class MainWindow(QMainWindow):
                         self.__action_format_lang_js.setChecked(True)
                         self.__lang_label.setText(self.lang["JS"])
 
+                    elif dlg.selectedNameFilter() in ["Markdown file (*.md)",
+                                                      "Markdown file (*.markdown)",
+                                                      "Markdown files (*.md; *.markdown)"]:
+                        # Markdown files.
+                        # .md;.markdown
+
+                        self.__ed.set_lexer_markdown()
+                        self.__action_format_lang_md.setChecked(True)
+                        self.__lang_label.setText(self.lang["Markdown"])
+
                     elif dlg.selectedNameFilter() in ["PyInstaller files (*.spec)",
                                                       "Python script (*.py)",
                                                       "Python console-less scripts (*.pyw)",
@@ -1437,6 +1482,14 @@ class MainWindow(QMainWindow):
                             self.__ed.set_lexer_js()
                             self.__action_format_lang_js.setChecked(True)
                             self.__lang_label.setText(self.lang["JS"])
+
+                        elif os.path.splitext(item)[1].lower() in (".md",
+                                                                   ".markdown"):
+                            # Markdown files.
+
+                            self.__ed.set_lexer_markdown()
+                            self.__action_format_lang_md.setChecked(True)
+                            self.__lang_label.setText(self.lang["Markdown"])
 
                         elif os.path.splitext(item)[1].lower() in (".py",
                                                                    ".pyw",
@@ -1506,6 +1559,8 @@ class MainWindow(QMainWindow):
             msg.setText(f"Cannot open the file. Reason: {str(exc)}")
             msg.setInformativeText("Txter cannot process the file.")
             msg.setDetailedText(traceback.format_exc())
+
+            # Execute the message box.
             msg.exec()
 
         else:
@@ -1580,6 +1635,13 @@ class MainWindow(QMainWindow):
                 self.__ed.set_lexer_js()
                 self.__action_format_lang_js.setChecked(True)
                 self.__lang_label.setText(self.lang["JS"])
+
+            elif os.path.splitext(item)[1].lower() in (".md",
+                                                       ".markdown"):
+
+                self.__ed.set_lexer_markdown()
+                self.__action_format_lang_md.setChecked(True)
+                self.__lang_label.setText(self.lang["Markdown"])
 
             elif os.path.splitext(item)[1].lower() in (".egg",
                                                        ".egg-info",
@@ -1728,6 +1790,11 @@ class MainWindow(QMainWindow):
 
                 dlg.selectNameFilter("JavaScript file (*.js)")
 
+            elif self.__action_format_lang_md.isChecked():
+                # If the lexer is MarkDown:
+
+                dlg.selectNameFilter("Markdown file (*.md)")
+
             elif (self.__action_format_lang_python.isChecked()
                   | self.__action_format_lang_python_2.isChecked()):
                 # If the lexer is either Python 2 or Python 3:
@@ -1780,7 +1847,11 @@ class MainWindow(QMainWindow):
             msg.setText(f"Cannot save the file. Reason: {str(exc)}")
             msg.setInformativeText("Txter cannot process the file.")
             msg.setDetailedText(traceback.format_exc())
+
+            # Execute the message box.
             msg.exec()
+
+            # And terminate the method.
             return
 
         else:
@@ -2111,6 +2182,17 @@ class MainWindow(QMainWindow):
         self.__lang_label.setText(self.lang["JS"])
         self.__tab_widget.setTabIcon(self.__tab_widget.currentIndex(), self.__image_js)
 
+    def __slot_format_lang_md(self):
+        """
+        Change the lexer to MarkDown.
+
+        :return: None
+        """
+
+        self.__ed.set_lexer_markdown()
+        self.__lang_label.setText(self.lang["Markdown"])
+        self.__tab_widget.setTabIcon(self.__tab_widget.currentIndex(), self.__image_md)
+
     def __slot_format_lang_python_2(self):
         """
         Change the lexer to Python 2.
@@ -2134,6 +2216,23 @@ class MainWindow(QMainWindow):
         self.__lang_label.setText(self.lang["Python"])
         self.__tab_widget.setTabIcon(self.__tab_widget.currentIndex(), self.__image_python)
 
+    #
+    # -------------
+    # Public method
+    # -------------
+    #
+
+    def context_menu_list(self):
+        return [
+                self.__action_edit_undo,
+                self.__action_edit_redo,
+                None,
+                self.__action_edit_cut,
+                self.__action_edit_copy,
+                self.__action_edit_paste,
+                None,
+                self.__action_edit_select_all
+            ]
 
 #
 # Running the main script...
