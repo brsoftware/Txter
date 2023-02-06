@@ -1,6 +1,19 @@
 # Txter
 Powerful and free source code editor for creative developers. 
 
+## Install it.
+![https://sourceforge.net/projects/brtxter]
+
+Or, build from the source.
+
+Firstly, Google something to install Python. Then, install `PyQt5` and `QScintilla` using `pip install ` through some online-tutorials.
+
+Then, download this repository. Unzip it.
+
+Find the file `main.py` inside the `src` directory. Run it.
+
+That's it.
+
 ## What is Txter?
 Txter is a text editor. In another word, it is a source code editor. Developers can use Txter to develop software(s) and project(s) at lease 6 (six) programming languages.
 
