@@ -11,7 +11,7 @@
 
 Name: Txter
 Verifying Name: BrTxter
-Latest Version: 0.5.0 beta
+Latest Version: 0.8.0
 Earliest Supported Version: 0.2.0 alpha
 Software Category: Developing/Productivity
 Software Type: Freeware (free as in "freedom")
@@ -19,6 +19,24 @@ Software Type: Freeware (free as in "freedom")
 +----------------------+
 |Release notes and logs|
 +----------------------+
+
+0.8.0
+=====
+Date:
+    Mon Feb 6, 2023 UTC
+------------------------------
+  - Bug fixed:
+      1. -NONE-
+  - Functionalities added:
+      1. Add a Markdown lexer (a new language added)
+      2. Add support for auto-indentation for normal lexer (no language)
+      3. Add support for auto-complete
+      4. Add support for Regular Expression (and others) for find/replace
+      5. Add better images.
+      6. Add folding functions.
+  - Remarks:
+      1. The Beta testing of Txter ends.
+      2. This is the first official stable release of Txter, and it becomes a Release Candidate (1).
 
 0.5.0 alpha
 ===========
